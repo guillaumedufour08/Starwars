@@ -10,6 +10,8 @@
 
     <!-- Descriptions -->
     <string name="character_list_item_button_description">Bouton pour naviger vers la page de détail du personnage %1$s</string>
+    <string name="character_gender_description">Le genre du personnage %1$s</string>
+    <string name="character_height_description">La grandeur du personnage %1$s</string>
 
     <!-- Character -->
     <string name="height">%1$s cm</string>
