@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.starwars.databinding.CharactersListItemBinding
 import com.example.starwars.model.Character
 
-class CharactersListAdapter(private val onItemClicked: (Character) -> Unit) : ListAdapter<Character, CharactersListAdapter.ViewHolder>(DiffCallback) {
+class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffCallback) {
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Character>() {

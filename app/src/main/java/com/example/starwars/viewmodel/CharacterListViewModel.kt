@@ -8,7 +8,7 @@ import com.example.starwars.CharacterRepository
 import com.example.starwars.model.Character
 import kotlinx.coroutines.launch
 
-class CharactersListViewModel : ViewModel() {
+class CharacterListViewModel : ViewModel() {
 
     private val characterRepository = CharacterRepository()
 
