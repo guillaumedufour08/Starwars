@@ -42,10 +42,11 @@ class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : Lis
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(private val binding: CharactersListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: CharactersListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(character: Character) {
             binding.characterNameTextView.text = character.name
-            binding.navigateToCharacterDetailButton.contentDescription = binding.root.context.getString(R.string.character_list_item_button_description, character.name)
+            binding.characterListItemCardView.contentDescription = binding.root.context.getString(R.string.character_list_item_button_description, character.name)
+//            binding.navigateToCharacterDetailImageView.contentDescription = binding.root.context.getString(R.string.character_list_item_button_description, character.name)
         }
     }
 }

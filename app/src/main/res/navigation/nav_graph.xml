@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.starwars.ui.CharacterListFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/character_list_fragment_label"
         tools:layout="@layout/fragment_character_list">
 
         <action
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.example.starwars.ui.CharacterDetailFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/character_detail_fragment_label"
         tools:layout="@layout/fragment_character_detail">
 
         <argument
