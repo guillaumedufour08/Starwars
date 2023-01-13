@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.starwars.R
+import com.example.starwars.StringFinder
 import com.example.starwars.databinding.CharactersListItemBinding
 import com.example.starwars.model.Character
 
@@ -44,9 +45,12 @@ class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : Lis
 
     inner class ViewHolder(private val binding: CharactersListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(character: Character) {
-            binding.characterNameTextView.text = character.name
-            binding.characterListItemCardView.contentDescription = binding.root.context.getString(R.string.character_list_item_button_description, character.name)
-//            binding.navigateToCharacterDetailImageView.contentDescription = binding.root.context.getString(R.string.character_list_item_button_description, character.name)
+            binding.apply {
+                characterNameTextView.text = character.name
+                characterListItemCardView.contentDescription = root.context.getString(R.string.character_list_item_button_description, character.name)
+                heightTextView.text = root.context.getString(R.string.height, character.height)
+                genderTextView.text = StringFinder.findFromName(root, character.gender)
+            }
         }
     }
 }

@@ -15,9 +15,16 @@ class CharacterListViewModel : ViewModel() {
     private val _charactersList = MutableLiveData<List<Character>>()
     val characterList : LiveData<List<Character>> =  _charactersList
 
+    private val _areCharactersBeingFetched = MutableLiveData<Boolean>()
+    val areCharactersBeingFetched : LiveData<Boolean> =  _areCharactersBeingFetched
+
     fun fetchCharacters() {
-        viewModelScope.launch {
-            _charactersList.value = characterRepository.fetchCharacters()
+        if (_charactersList.value == null) {
+            _areCharactersBeingFetched.value = true
+            viewModelScope.launch {
+                _charactersList.value = characterRepository.fetchCharacters()
+                _areCharactersBeingFetched.value = false
+            }
         }
     }
 }

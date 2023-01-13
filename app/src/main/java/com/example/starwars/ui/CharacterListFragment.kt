@@ -34,14 +34,19 @@ class CharacterListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
         initializeListObserver()
+
+        viewModel.areCharactersBeingFetched.observe(viewLifecycleOwner) { areCharactersBeingFetched ->
+            binding.charactersLoadingProgressBar.apply {
+                visibility = if (areCharactersBeingFetched) View.VISIBLE else View.GONE
+            }
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetchCharacters()
-        binding.charactersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.charactersRecyclerView.adapter = charactersListAdapter
+        initializeCharacterRecyclerView()
     }
 
     private fun initializeListObserver() {
@@ -49,6 +54,13 @@ class CharacterListFragment : Fragment() {
             lifecycle.coroutineScope.launch {
                 charactersListAdapter.submitList(characters)
             }
+        }
+    }
+
+    private fun initializeCharacterRecyclerView() {
+        binding.charactersRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = charactersListAdapter
         }
     }
 
