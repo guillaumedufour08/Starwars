@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.starwars.R
 import com.example.starwars.StringFinder
-import com.example.starwars.databinding.CharactersListItemBinding
+import com.example.starwars.databinding.CharacterListItemBinding
 import com.example.starwars.model.Character
 
 class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffCallback) {
@@ -26,7 +26,7 @@ class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : Lis
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val viewHolder = ViewHolder(
-            CharactersListItemBinding.inflate(
+            CharacterListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -43,7 +43,7 @@ class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : Lis
         holder.bind(getItem(position))
     }
 
-    inner class ViewHolder(private val binding: CharactersListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: CharacterListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(character: Character) {
             binding.apply {
                 characterNameTextView.text = character.name

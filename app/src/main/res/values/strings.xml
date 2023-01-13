@@ -12,6 +12,10 @@
     <string name="character_list_item_button_description">Bouton pour naviger vers la page de détail du personnage %1$s</string>
     <string name="character_gender_description">Le genre du personnage %1$s</string>
     <string name="character_height_description">La grandeur du personnage %1$s</string>
+    <string name="character_count_description">Le nombre total de personnage dans la liste.</string>
+    <string name="character_height_average_description">La moyenne de grandeur des personnages dans la liste.</string>
+    <string name="total_character">Total - personnage</string>
+    <string name="average_height">Moyenne - grandeur</string>
 
     <!-- Character -->
     <string name="height">%1$s cm</string>

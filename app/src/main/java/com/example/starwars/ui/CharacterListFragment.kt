@@ -31,6 +31,12 @@ class CharacterListFragment : Fragment() {
         }
     )
 
+    private val dataAdapter = DataAdapter(
+        onItemClicked = { character ->
+            navigateToCharacterDetail(character)
+        }
+    )
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
         initializeListObserver()
@@ -47,7 +53,8 @@ class CharacterListFragment : Fragment() {
     private fun initializeListObserver() {
         viewModel.characterList.observe(viewLifecycleOwner) { characters ->
             lifecycle.coroutineScope.launch {
-                charactersListAdapter.submitList(characters)
+//                charactersListAdapter.submitList(characters)
+                dataAdapter.setData(characters)
             }
         }
     }
@@ -63,7 +70,8 @@ class CharacterListFragment : Fragment() {
     private fun initializeCharacterRecyclerView() {
         binding.charactersRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = charactersListAdapter
+//            adapter = charactersListAdapter
+            adapter = dataAdapter
         }
     }
 
