@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.starwars.R
 import com.example.starwars.databinding.CharactersListItemBinding
 import com.example.starwars.model.Character
 
@@ -25,7 +26,7 @@ class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : Lis
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val viewHolder = ViewHolder(
             CharactersListItemBinding.inflate(
-                LayoutInflater.from( parent.context),
+                LayoutInflater.from(parent.context),
                 parent,
                 false
             )
@@ -44,6 +45,7 @@ class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : Lis
     class ViewHolder(private val binding: CharactersListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(character: Character) {
             binding.characterNameTextView.text = character.name
+            binding.navigateToCharacterDetailButton.contentDescription = binding.root.context.getString(R.string.character_list_item_button_description, character.name)
         }
     }
 }

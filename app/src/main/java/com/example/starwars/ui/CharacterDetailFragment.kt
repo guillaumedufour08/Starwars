@@ -12,7 +12,7 @@ import com.example.starwars.databinding.FragmentCharacterDetailBinding
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class CharacterDetailFragment : Fragment() {
 
     private var _binding: FragmentCharacterDetailBinding? = null
 
