@@ -34,12 +34,7 @@ class CharacterListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
         initializeListObserver()
-
-        viewModel.areCharactersBeingFetched.observe(viewLifecycleOwner) { areCharactersBeingFetched ->
-            binding.charactersLoadingProgressBar.apply {
-                visibility = if (areCharactersBeingFetched) View.VISIBLE else View.GONE
-            }
-        }
+        initializeFetchingCharactersObserver()
         return binding.root
     }
 
@@ -53,6 +48,14 @@ class CharacterListFragment : Fragment() {
         viewModel.characterList.observe(viewLifecycleOwner) { characters ->
             lifecycle.coroutineScope.launch {
                 charactersListAdapter.submitList(characters)
+            }
+        }
+    }
+
+    private fun initializeFetchingCharactersObserver() {
+        viewModel.areCharactersBeingFetched.observe(viewLifecycleOwner) { areCharactersBeingFetched ->
+            binding.charactersLoadingProgressBar.apply {
+                visibility = if (areCharactersBeingFetched) View.VISIBLE else View.GONE
             }
         }
     }
