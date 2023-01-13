@@ -23,9 +23,11 @@ class CharacterListFragment : Fragment() {
     private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
 
-    private val charactersListAdapter = CharacterListAdapter { character ->
-        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-    }
+    private val charactersListAdapter = CharacterListAdapter(
+        onItemClicked = { character ->
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
+    )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
