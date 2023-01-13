@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.example.starwars.R
 import com.example.starwars.databinding.FragmentCharacterListBinding
 import com.example.starwars.viewmodel.CharacterListViewModel
 import kotlinx.coroutines.launch
+import com.example.starwars.model.Character
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -25,7 +27,7 @@ class CharacterListFragment : Fragment() {
 
     private val charactersListAdapter = CharacterListAdapter(
         onItemClicked = { character ->
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            navigateToCharacterDetail(character)
         }
     )
 
@@ -48,6 +50,11 @@ class CharacterListFragment : Fragment() {
                 charactersListAdapter.submitList(characters)
             }
         }
+    }
+
+    private fun navigateToCharacterDetail(character: Character) {
+        val bundle = bundleOf("characterURL" to character.url)
+        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
     }
 
     override fun onDestroyView() {

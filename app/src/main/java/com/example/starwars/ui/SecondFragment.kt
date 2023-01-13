@@ -25,6 +25,7 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCharacterDetailBinding.inflate(inflater, container, false)
+        println(arguments?.getString("characterURL"))
         return binding.root
     }
 

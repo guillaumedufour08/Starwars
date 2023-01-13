@@ -33,7 +33,6 @@ class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : Lis
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             onItemClicked(getItem(position))
-            println(position)
         }
         return viewHolder
     }
