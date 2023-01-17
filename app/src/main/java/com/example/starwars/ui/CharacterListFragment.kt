@@ -76,7 +76,7 @@ class CharacterListFragment : Fragment() {
     }
 
     private fun navigateToCharacterDetail(character: Character) {
-        val bundle = bundleOf("characterURL" to character.url)
+        val bundle = bundleOf("character" to character)
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
     }
 
