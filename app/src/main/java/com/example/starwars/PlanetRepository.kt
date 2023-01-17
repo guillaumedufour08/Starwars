@@ -2,6 +2,7 @@ package com.example.starwars
 
 import com.example.starwars.api.ApiProvider
 import com.example.starwars.api.PlanetAPI
+import com.example.starwars.model.Planet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

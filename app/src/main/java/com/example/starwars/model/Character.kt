@@ -10,5 +10,5 @@ class Character(val name: String,
                      @SerializedName("vehicles")
                      val vehicleURLS: List<String>,
                      val url: String,
-                     var homeworldID: String) {
+                     var homeworldID: String): java.io.Serializable {
  }

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.starwars.R
-import com.example.starwars.StringFinder
+import com.example.starwars.StringManager
 import com.example.starwars.databinding.CharacterListItemBinding
 import com.example.starwars.databinding.CharacterListStatsItemBinding
 import com.example.starwars.model.Character
@@ -69,7 +69,7 @@ class DataAdapter(private val onItemClicked: (Character) -> Unit) : RecyclerView
             (binding as CharacterListItemBinding).apply {
                 characterNameTextView.text = character.name
                 heightTextView.text = root.context.getString(R.string.height, character.height)
-                genderTextView.text = StringFinder.findFromName(root, character.gender)
+                genderTextView.text = StringManager.findFromName(root, character.gender)
 
                 characterListItemCardView.contentDescription = root.context.getString(R.string.character_list_item_button_description, character.name)
                 characterListItemCardView.setOnClickListener {

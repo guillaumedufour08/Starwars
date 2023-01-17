@@ -30,8 +30,8 @@ class CharacterListViewModel : ViewModel() {
     private val _homeworld = MutableLiveData<Planet>()
     val homeworld : LiveData<Planet> = _homeworld
 
-    private val _vehiculeList = MutableLiveData<List<Vehicule>>()
-    val vehiculeList : LiveData<List<Vehicule>> = _vehiculeList
+    private val _vehiclesList = MutableLiveData<List<Vehicule>>()
+    val vehiclesList : LiveData<List<Vehicule>> = _vehiclesList
 
     fun fetchCharacters() {
         if (_charactersList.value == null) {
@@ -49,10 +49,7 @@ class CharacterListViewModel : ViewModel() {
 
     fun fetchCharacterPlanetAndVehicules() {
         fetchPlanet()
-
-//        viewModelScope.launch {
-//            _vehiculeList.value = vehiculeRepository.fetchVehicules(_selectedCharacter.value!!.vehicleURLS)
-//        }
+        fetchVehicules()
     }
 
     private fun fetchPlanet() {
@@ -64,6 +61,8 @@ class CharacterListViewModel : ViewModel() {
     }
 
     private fun fetchVehicules() {
-
+        viewModelScope.launch {
+            _vehiclesList.value = vehiculeRepository.fetchVehicules(_selectedCharacter.value!!.vehicleURLS)
+        }
     }
 }
