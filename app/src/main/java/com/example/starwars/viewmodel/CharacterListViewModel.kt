@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.starwars.CharacterRepository
 import com.example.starwars.PlanetRepository
+import com.example.starwars.StringManager
 import com.example.starwars.VehiculeRepository
 import com.example.starwars.model.Character
 import com.example.starwars.model.Planet
@@ -53,8 +54,7 @@ class CharacterListViewModel : ViewModel() {
     }
 
     private fun fetchPlanet() {
-        val homeworldURL = _selectedCharacter.value!!.homeworldURL
-        val id = homeworldURL[homeworldURL.lastIndex - 1].toString()
+        val id = StringManager.retriveIdFromURL(_selectedCharacter.value!!.homeworldURL)
         viewModelScope.launch {
             _homeworld.value = planetRepository.fetchPlanet(id)
         }

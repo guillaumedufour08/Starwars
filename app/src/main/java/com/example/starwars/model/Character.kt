@@ -9,6 +9,5 @@ class Character(val name: String,
                      val homeworldURL: String,
                      @SerializedName("vehicles")
                      val vehicleURLS: List<String>,
-                     val url: String,
-                     var homeworldID: String): java.io.Serializable {
+                     val url: String): java.io.Serializable {
  }

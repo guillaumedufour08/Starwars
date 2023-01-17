@@ -2,7 +2,6 @@ package com.example.starwars
 
 import com.example.starwars.api.ApiProvider
 import com.example.starwars.api.VehiculeAPI
-import com.example.starwars.model.Planet
 import com.example.starwars.model.Vehicule
 
 class VehiculeRepository {
