@@ -21,9 +21,9 @@
         android:label="@string/character_detail_fragment_label"
         tools:layout="@layout/fragment_character_detail">
 
-        <argument
-            android:name="character"
-            app:argType="com.example.starwars.model.Character" />
+<!--        <argument-->
+<!--            android:name="character"-->
+<!--            app:argType="com.example.starwars.model.Character" />-->
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

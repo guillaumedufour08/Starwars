@@ -76,8 +76,8 @@ class CharacterListFragment : Fragment() {
     }
 
     private fun navigateToCharacterDetail(character: Character) {
-        val bundle = bundleOf("character" to character)
-        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
+        viewModel.setSelectedCharacter(character)
+        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
     override fun onDestroyView() {

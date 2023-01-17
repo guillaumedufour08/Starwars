@@ -55,6 +55,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.example.starwars.ui.InfoWithImageCard
+        android:id="@+id/infoWithImageCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
@@ -62,5 +63,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/characterNameCardView"
         app:titleText="Test from XML" />
+
+    <TextView
+        android:id="@+id/planetNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoWithImageCard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
