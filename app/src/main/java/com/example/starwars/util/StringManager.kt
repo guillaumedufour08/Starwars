@@ -1,10 +1,8 @@
 package com.example.starwars.util
 
 import android.os.Build
-import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
-import java.text.SimpleDateFormat
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
