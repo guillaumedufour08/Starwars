@@ -75,7 +75,7 @@ class CharacterListFragment : Fragment() {
     }
 
     private fun navigateToCharacterDetail(character: Character) {
-        viewModel.setSelectedCharacter(character)
+//        viewModel.setSelectedCharacter(character)
         val bundle = bundleOf("character" to character)
         findNavController().navigate(R.id.action_CharacterListFragment_to_CharacterDetailFragment, bundle)
     }

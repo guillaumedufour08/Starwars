@@ -42,7 +42,7 @@ class CharacterDetailFragment : Fragment() {
         viewModel.fetchCharacterPlanetAndVehicules()
         initializeCharacterObserver()
         initializePlanetObserver()
-        initializeVehiclesObserver()
+        initializeVehiclesListObserver()
     }
 
     private fun initializeCharacterObserver() {
@@ -63,7 +63,7 @@ class CharacterDetailFragment : Fragment() {
         }
     }
 
-    private fun initializeVehiclesObserver() {
+    private fun initializeVehiclesListObserver() {
 //        testViewModel.vehiclesList.observe(viewLifecycleOwner) { vehicles ->
 //            lifecycle.coroutineScope.launch {
 //                if (testViewModel.areVehiclesBeingFetched.value == false) {
