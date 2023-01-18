@@ -21,7 +21,7 @@ class CharacterDetailFragment : Fragment() {
     private var _binding: FragmentCharacterDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val vehiclesListAdapter = VehiclesAdapter()
+    private val starshipsListAdapter = StarshipListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,10 +36,10 @@ class CharacterDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeCharacterRecyclerView()
         initializeCharacterImageViewContentDescription()
-        viewModel.fetchCharacterPlanetAndVehicules()
+        viewModel.fetchCharacterPlanetAndStarships()
         initializeCharacterObserver()
         initializePlanetObserver()
-        initializeVehiclesListObserver()
+        initializeStarshipsListObserver()
     }
 
     private fun initializeCharacterObserver() {
@@ -54,22 +54,22 @@ class CharacterDetailFragment : Fragment() {
     }
 
     private fun initializeCharacterRecyclerView() {
-        binding.vehiclesRecyclerView.apply {
+        binding.starshipsRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = vehiclesListAdapter
+            adapter = starshipsListAdapter
         }
     }
 
-    private fun initializeVehiclesListObserver() {
-        viewModel.vehiclesList.observe(viewLifecycleOwner) { vehicles ->
+    private fun initializeStarshipsListObserver() {
+        viewModel.starshipList.observe(viewLifecycleOwner) { starships ->
             binding.apply {
-                loadingVehiclesProgressBar.visibility =
-                    if (viewModel.areVehiclesBeingFetched.value == true) View.VISIBLE else View.GONE
-                if (vehicles.isEmpty()) {
-                    emptyVehiclesTextView.visibility = View.VISIBLE
+                loadingStarshipsProgressBar.visibility =
+                    if (viewModel.areStarshipsBeingFetched.value == true) View.VISIBLE else View.GONE
+                if (starships.isEmpty()) {
+                    emptyStarshipsTextView.visibility = View.VISIBLE
                 } else {
-                    vehiclesRecyclerView.visibility = View.VISIBLE
-                    vehiclesListAdapter.submitList(vehicles)
+                    starshipsRecyclerView.visibility = View.VISIBLE
+                    starshipsListAdapter.submitList(starships)
                 }
             }
         }

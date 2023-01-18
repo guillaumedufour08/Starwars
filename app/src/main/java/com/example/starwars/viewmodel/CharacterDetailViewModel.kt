@@ -6,15 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.starwars.model.Character
 import com.example.starwars.model.Planet
-import com.example.starwars.model.Vehicule
+import com.example.starwars.model.Starship
 import com.example.starwars.repository.PlanetRepository
-import com.example.starwars.repository.VehiculeRepository
+import com.example.starwars.repository.StarshipRepository
 import com.example.starwars.util.retrieveIdFromURL
 import kotlinx.coroutines.launch
 
 class CharacterDetailViewModel : ViewModel() {
     private val planetRepository = PlanetRepository()
-    private val vehiculeRepository = VehiculeRepository()
+    private val starshipRepository = StarshipRepository()
 
     private val _selectedCharacter = MutableLiveData<Character?>()
     val selectedCharacter : LiveData<Character?> = _selectedCharacter
@@ -22,11 +22,11 @@ class CharacterDetailViewModel : ViewModel() {
     private val _homeworld = MutableLiveData<Planet>()
     val homeworld : LiveData<Planet> = _homeworld
 
-    private val _vehiclesList = MutableLiveData<List<Vehicule>>()
-    val vehiclesList : LiveData<List<Vehicule>> = _vehiclesList
+    private val _starshipList = MutableLiveData<List<Starship>>()
+    val starshipList : LiveData<List<Starship>> = _starshipList
 
-    private val _areVehiclesBeingFetched = MutableLiveData<Boolean>()
-    val areVehiclesBeingFetched : LiveData<Boolean> =  _areVehiclesBeingFetched
+    private val _areStarshipsBeingFetched = MutableLiveData<Boolean>()
+    val areStarshipsBeingFetched : LiveData<Boolean> =  _areStarshipsBeingFetched
 
     private val _isHomeworldBeingFetched = MutableLiveData<Boolean>()
     val isHomeworldBeingFetched : LiveData<Boolean> =  _isHomeworldBeingFetched
@@ -35,9 +35,9 @@ class CharacterDetailViewModel : ViewModel() {
         _selectedCharacter.value = character
     }
 
-    fun fetchCharacterPlanetAndVehicules() {
+    fun fetchCharacterPlanetAndStarships() {
         fetchPlanet()
-        fetchVehicules()
+        fetchStarships()
     }
 
     private fun fetchPlanet() {
@@ -49,11 +49,11 @@ class CharacterDetailViewModel : ViewModel() {
         }
     }
 
-    private fun fetchVehicules() {
-        _areVehiclesBeingFetched.value = true
+    private fun fetchStarships() {
+        _areStarshipsBeingFetched.value = true
         viewModelScope.launch {
-            _areVehiclesBeingFetched.value = false
-            _vehiclesList.value = vehiculeRepository.fetchVehicules(_selectedCharacter.value!!.vehicleURLS)
+            _areStarshipsBeingFetched.value = false
+            _starshipList.value = starshipRepository.fetchStarships(_selectedCharacter.value!!.starshipsURLS)
         }
     }
 }

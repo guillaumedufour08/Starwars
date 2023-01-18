@@ -21,20 +21,20 @@
     <string name="homeworld_image_view_description">Photo de la planète %1$s</string>
 
     <!-- Messages -->
-    <string name="empty_vehicle_list_message">Il n\'y a aucun vehicule d\'associé à ce personnage.</string>
+    <string name="empty_starship_list_message">Il n\'y a aucun vaisseau d\'associé à ce personnage.</string>
 
     <!-- Titles -->
     <string name="summary_title">Sommaire</string>
     <string name="height_title">Grandeur</string>
     <string name="homeland_title">Planète de naissance</string>
-    <string name="vehicles_title">Vehicules</string>
+    <string name="starships_title">Vaisseaux</string>
 
     <!-- Character -->
     <string name="height">%1$s cm</string>
     <string name="gender">Genre</string>
     <string name="updated_at">Modifié le %1$s</string>
 
-    <!-- Vehicles -->
+    <!-- Starships & vehicules -->
     <string name="max_speed">%1$s km/h</string>
 
     <!-- Gender types -->
