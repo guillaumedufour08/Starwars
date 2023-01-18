@@ -21,6 +21,8 @@ class StringManager {
             return url.substring(start, trimedURL.lastIndex + 1)
         }
 
+        // TODO : Fonctionne seulement avec API 26... trouver une solution pour être
+        //  compatible avec API 21 (minimum actuel du projet)
         @RequiresApi(Build.VERSION_CODES.O)
         fun formatDate(dateString: String): String {
             val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")

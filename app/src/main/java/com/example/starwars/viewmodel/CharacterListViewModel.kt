@@ -22,8 +22,8 @@ class CharacterListViewModel : ViewModel() {
     private val _charactersList = MutableLiveData<List<Character>>()
     val characterList : LiveData<List<Character>> =  _charactersList
 
-    private val isInCall = MutableLiveData<Boolean>()
-    val areCharactersBeingFetched : LiveData<Boolean> =  isInCall
+    private val _isInCall = MutableLiveData<Boolean>()
+    val isInCall : LiveData<Boolean> =  _isInCall
 
     private val _selectedCharacter = MutableLiveData<Character?>()
     val selectedCharacter : LiveData<Character?> = _selectedCharacter
@@ -31,15 +31,18 @@ class CharacterListViewModel : ViewModel() {
     private val _homeworld = MutableLiveData<Planet?>()
     val homeworld : LiveData<Planet?> = _homeworld
 
-    private val _vehiclesList = MutableLiveData<List<Vehicule>>()
-    val vehiclesList : LiveData<List<Vehicule>> = _vehiclesList
+    private val _vehiclesList = MutableLiveData<List<Vehicule>?>()
+    val vehiclesList : LiveData<List<Vehicule>?> = _vehiclesList
+
+    private val _areVehiclesBeingFetched = MutableLiveData<Boolean>()
+    val areVehiclesBeingFetched : LiveData<Boolean> =  _areVehiclesBeingFetched
 
     fun fetchCharacters() {
         if (_charactersList.value == null) {
-            isInCall.value = true
+            _isInCall.value = true
             viewModelScope.launch {
                 _charactersList.value = characterRepository.fetchCharacters()
-                isInCall.value = false
+                _isInCall.value = false
             }
         }
     }
@@ -51,7 +54,7 @@ class CharacterListViewModel : ViewModel() {
     fun unselectCharacter() {
         _selectedCharacter.value = null
         _homeworld.value = null
-        _vehiclesList.value = listOf()
+        _vehiclesList.value = null
     }
 
     fun fetchCharacterPlanetAndVehicules() {
@@ -67,7 +70,9 @@ class CharacterListViewModel : ViewModel() {
     }
 
     private fun fetchVehicules() {
+        _areVehiclesBeingFetched.value = true
         viewModelScope.launch {
+            _areVehiclesBeingFetched.value = false
             _vehiclesList.value = vehiculeRepository.fetchVehicules(_selectedCharacter.value!!.vehicleURLS)
         }
     }

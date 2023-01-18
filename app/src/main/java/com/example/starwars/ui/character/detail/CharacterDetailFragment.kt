@@ -63,8 +63,17 @@ class CharacterDetailFragment : Fragment() {
     private fun initializeVehiclesObserver() {
         viewModel.vehiclesList.observe(viewLifecycleOwner) { vehicles ->
             lifecycle.coroutineScope.launch {
-                binding.apply {
-                    vehiclesListAdapter.submitList(vehicles)
+                if (viewModel.areVehiclesBeingFetched.value == false) {
+                    if (vehicles != null) {
+                        binding.apply {
+                            if (vehicles.isEmpty()) {
+                                emptyVehiclesTextView.visibility = View.VISIBLE
+                            } else {
+                                vehiclesRecyclerView.visibility = View.VISIBLE
+                                vehiclesListAdapter.submitList(vehicles)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -73,8 +82,9 @@ class CharacterDetailFragment : Fragment() {
     private fun initializePlanetObserver() {
         viewModel.homeworld.observe(viewLifecycleOwner) { planet ->
             lifecycle.coroutineScope.launch {
-                binding.apply {
-                    if (planet != null) {
+                if (planet != null) {
+                    binding.apply {
+                        homelandCardView.visibility = View.VISIBLE
                         planetNameTextView.text = planet.name
                     }
                 }

@@ -59,7 +59,7 @@ class CharacterListFragment : Fragment() {
     }
 
     private fun initializeFetchingCharactersObserver() {
-        viewModel.areCharactersBeingFetched.observe(viewLifecycleOwner) { areCharactersBeingFetched ->
+        viewModel.isInCall.observe(viewLifecycleOwner) { areCharactersBeingFetched ->
             binding.charactersLoadingProgressBar.apply {
                 visibility = if (areCharactersBeingFetched) View.VISIBLE else View.GONE
             }
