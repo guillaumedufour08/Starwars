@@ -5,12 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.starwars.repository.CharacterRepository
-import com.example.starwars.repository.PlanetRepository
-import com.example.starwars.util.StringManager
-import com.example.starwars.repository.VehiculeRepository
 import com.example.starwars.model.Character
-import com.example.starwars.model.Planet
-import com.example.starwars.model.Vehicule
 import kotlinx.coroutines.launch
 
 class CharacterListViewModel : ViewModel() {
@@ -22,8 +17,8 @@ class CharacterListViewModel : ViewModel() {
     private val _charactersList = MutableLiveData<List<Character>>()
     val characterList : LiveData<List<Character>> =  _charactersList
 
-    private val _isInCall = MutableLiveData<Boolean>()
-    val isInCall : LiveData<Boolean> =  _isInCall
+    private val _isCallingApi = MutableLiveData<Boolean>()
+    val isCallingApi : LiveData<Boolean> =  _isCallingApi
 
 //    private val _selectedCharacter = MutableLiveData<Character?>()
 //    val selectedCharacter : LiveData<Character?> = _selectedCharacter
@@ -39,10 +34,10 @@ class CharacterListViewModel : ViewModel() {
 
     fun fetchCharacters() {
         if (_charactersList.value == null) {
-            _isInCall.value = true
+            _isCallingApi.value = true
             viewModelScope.launch {
                 _charactersList.value = characterRepository.fetchCharacters()
-                _isInCall.value = false
+                _isCallingApi.value = false
             }
         }
     }
