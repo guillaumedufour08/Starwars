@@ -1,4 +1,4 @@
-package com.example.starwars.ui
+package com.example.starwars.ui.components
 
 import android.content.Context
 import android.util.AttributeSet

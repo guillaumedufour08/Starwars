@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.starwars.CharacterRepository
-import com.example.starwars.PlanetRepository
-import com.example.starwars.StringManager
-import com.example.starwars.VehiculeRepository
+import com.example.starwars.repository.CharacterRepository
+import com.example.starwars.repository.PlanetRepository
+import com.example.starwars.util.StringManager
+import com.example.starwars.repository.VehiculeRepository
 import com.example.starwars.model.Character
 import com.example.starwars.model.Planet
 import com.example.starwars.model.Vehicule
@@ -25,11 +25,11 @@ class CharacterListViewModel : ViewModel() {
     private val isInCall = MutableLiveData<Boolean>()
     val areCharactersBeingFetched : LiveData<Boolean> =  isInCall
 
-    private val _selectedCharacter = MutableLiveData<Character>()
-    val selectedCharacter : LiveData<Character> = _selectedCharacter
+    private val _selectedCharacter = MutableLiveData<Character?>()
+    val selectedCharacter : LiveData<Character?> = _selectedCharacter
 
-    private val _homeworld = MutableLiveData<Planet>()
-    val homeworld : LiveData<Planet> = _homeworld
+    private val _homeworld = MutableLiveData<Planet?>()
+    val homeworld : LiveData<Planet?> = _homeworld
 
     private val _vehiclesList = MutableLiveData<List<Vehicule>>()
     val vehiclesList : LiveData<List<Vehicule>> = _vehiclesList
@@ -49,7 +49,9 @@ class CharacterListViewModel : ViewModel() {
     }
 
     fun unselectCharacter() {
-
+        _selectedCharacter.value = null
+        _homeworld.value = null
+        _vehiclesList.value = listOf()
     }
 
     fun fetchCharacterPlanetAndVehicules() {

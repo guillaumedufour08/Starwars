@@ -1,4 +1,4 @@
-package com.example.starwars
+package com.example.starwars.util
 
 import android.os.Build
 import android.view.View

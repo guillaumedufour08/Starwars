@@ -1,4 +1,4 @@
-package com.example.starwars.ui
+package com.example.starwars.ui.character.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

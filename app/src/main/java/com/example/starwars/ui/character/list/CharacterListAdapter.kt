@@ -1,18 +1,18 @@
-package com.example.starwars.ui
+package com.example.starwars.ui.character.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.starwars.R
-import com.example.starwars.StringManager
+import com.example.starwars.util.StringManager
 import com.example.starwars.databinding.CharacterListItemBinding
 import com.example.starwars.databinding.CharacterListStatsItemBinding
 import com.example.starwars.model.Character
 
-class DataAdapter(private val onItemClicked: (Character) -> Unit) : RecyclerView.Adapter<DataAdapter.DataAdapterViewHolder>() {
+class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : RecyclerView.Adapter<CharacterListAdapter.DataAdapterViewHolder>() {
 
-    private val adapterData = mutableListOf<Character>()
+    private val characters = mutableListOf<Character>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataAdapterViewHolder {
         val binding = when (viewType) {
@@ -33,27 +33,27 @@ class DataAdapter(private val onItemClicked: (Character) -> Unit) : RecyclerView
 
     override fun onBindViewHolder(holder: DataAdapterViewHolder, position: Int) {
         when (position) {
-            adapterData.size -> holder.bindStats()
-            else -> holder.bindCharacter(adapterData[position])
+            characters.size -> holder.bindStats()
+            else -> holder.bindCharacter(characters[position])
         }
     }
 
     override fun getItemCount(): Int {
-        return when (adapterData.size) {
+        return when (characters.size) {
             0 -> 0
-            else -> adapterData.size + 1
+            else -> characters.size + 1
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
-            adapterData.size -> TYPE_STATS
+            characters.size -> TYPE_STATS
             else -> TYPE_CHARACTER
         }
     }
 
     fun setData(data: List<Character>) {
-        adapterData.apply {
+        characters.apply {
             clear()
             addAll(data)
         }
@@ -80,12 +80,12 @@ class DataAdapter(private val onItemClicked: (Character) -> Unit) : RecyclerView
 
         fun bindStats() {
             (binding as CharacterListStatsItemBinding).apply {
-                characterCountTextView.text = adapterData.size.toString()
+                characterCountTextView.text = characters.size.toString()
                 var countHeight = 0
-                adapterData.forEach { character ->
+                characters.forEach { character ->
                     countHeight += character.height.toInt()
                 }
-                val averageHeight = countHeight / adapterData.size
+                val averageHeight = countHeight / characters.size
                 characterAverageHeightTextView.text = root.context.getString(R.string.height, averageHeight.toString())
             }
         }

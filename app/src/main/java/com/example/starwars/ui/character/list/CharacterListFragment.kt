@@ -1,11 +1,10 @@
-package com.example.starwars.ui
+package com.example.starwars.ui.character.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
@@ -25,13 +24,13 @@ class CharacterListFragment : Fragment() {
     private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
 
-    private val charactersListAdapter = CharacterListAdapter(
+    private val charactersListAdapterOld = CharacterListAdapterOld(
         onItemClicked = { character ->
             navigateToCharacterDetail(character)
         }
     )
 
-    private val dataAdapter = DataAdapter(
+    private val characterListAdapter = CharacterListAdapter(
         onItemClicked = { character ->
             navigateToCharacterDetail(character)
         }
@@ -54,7 +53,7 @@ class CharacterListFragment : Fragment() {
         viewModel.characterList.observe(viewLifecycleOwner) { characters ->
             lifecycle.coroutineScope.launch {
 //                charactersListAdapter.submitList(characters)
-                dataAdapter.setData(characters)
+                characterListAdapter.setData(characters)
             }
         }
     }
@@ -71,7 +70,7 @@ class CharacterListFragment : Fragment() {
         binding.charactersRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
 //            adapter = charactersListAdapter
-            adapter = dataAdapter
+            adapter = characterListAdapter
         }
     }
 

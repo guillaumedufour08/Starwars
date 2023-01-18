@@ -1,4 +1,4 @@
-package com.example.starwars.ui
+package com.example.starwars.ui.character.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.starwars.R
-import com.example.starwars.StringManager
+import com.example.starwars.util.StringManager
 import com.example.starwars.databinding.CharacterListItemBinding
 import com.example.starwars.model.Character
 
-class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffCallback) {
+class CharacterListAdapterOld(private val onItemClicked: (Character) -> Unit) : ListAdapter<Character, CharacterListAdapterOld.ViewHolder>(
+    DiffCallback
+) {
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Character>() {

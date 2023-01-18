@@ -1,5 +1,6 @@
-package com.example.starwars
+package com.example.starwars.repository
 
+import com.example.starwars.util.StringManager
 import com.example.starwars.api.ApiProvider
 import com.example.starwars.api.VehiculeAPI
 import com.example.starwars.model.Vehicule

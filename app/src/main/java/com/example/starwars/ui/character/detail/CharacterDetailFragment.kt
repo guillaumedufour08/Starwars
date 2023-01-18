@@ -1,4 +1,4 @@
-package com.example.starwars.ui
+package com.example.starwars.ui.character.detail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starwars.R
-import com.example.starwars.StringManager
+import com.example.starwars.util.StringManager
 import com.example.starwars.databinding.FragmentCharacterDetailBinding
 import com.example.starwars.viewmodel.CharacterListViewModel
 import kotlinx.coroutines.launch
@@ -46,7 +45,7 @@ class CharacterDetailFragment : Fragment() {
     private fun initializeCharacterObserver() {
         viewModel.selectedCharacter.observe(viewLifecycleOwner) { character ->
             binding.apply {
-                characterNameTextView.text = character.name
+                characterNameTextView.text = character!!.name
                 updatedAtTextView.text = root.context.getString(R.string.updated_at, StringManager.formatDate(character.edited))
                 genderCardView.setValue(StringManager.findFromName(root, character.gender))
                 heightCardView.setValue(root.context.getString(R.string.height, character.height))
@@ -75,7 +74,9 @@ class CharacterDetailFragment : Fragment() {
         viewModel.homeworld.observe(viewLifecycleOwner) { planet ->
             lifecycle.coroutineScope.launch {
                 binding.apply {
-                    planetNameTextView.text = planet.name
+                    if (planet != null) {
+                        planetNameTextView.text = planet.name
+                    }
                 }
             }
         }

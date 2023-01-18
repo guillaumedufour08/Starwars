@@ -1,10 +1,9 @@
-package com.example.starwars
+package com.example.starwars.repository
 
 import com.example.starwars.api.ApiProvider
 import com.example.starwars.api.CharacterAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.example.starwars.model.Character
 
 class CharacterRepository {
 

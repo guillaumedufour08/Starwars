@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.CharacterDetailFragment">
+    tools:context=".ui.character.detail.CharacterDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/summaryTitleTextView">
 
-            <com.example.starwars.ui.InfoWithImageCard
+            <com.example.starwars.ui.components.InfoWithImageCard
                 android:id="@+id/genderCardView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 app:iconSrc="@drawable/ic_baseline_transgender_24"
                 app:titleText="@string/gender" />
 
-            <com.example.starwars.ui.InfoWithImageCard
+            <com.example.starwars.ui.components.InfoWithImageCard
                 android:id="@+id/heightCardView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
