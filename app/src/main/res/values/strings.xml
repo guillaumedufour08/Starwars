@@ -17,6 +17,8 @@
     <string name="character_height_average_description">La moyenne de grandeur des personnages dans la liste.</string>
     <string name="total_character">Total - personnage</string>
     <string name="average_height">Moyenne - grandeur</string>
+    <string name="character_detail_image_view_description">Photo du personnage %1$s</string>
+    <string name="homeworld_image_view_description">Photo de la planète %1$s</string>
 
     <!-- Messages -->
     <string name="empty_vehicle_list_message">Il n\'y a aucun vehicule d\'associé à ce personnage.</string>

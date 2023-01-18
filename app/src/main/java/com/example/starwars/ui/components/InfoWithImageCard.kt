@@ -28,7 +28,11 @@ class InfoWithImageCard @JvmOverloads constructor(
 
     // Modification de la card view qui englobe le layout
     private fun customizeCardView() {
-        cardElevation = 5f
+        cardElevation = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            8f,
+            context.resources.displayMetrics
+        )
         radius = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             8f,

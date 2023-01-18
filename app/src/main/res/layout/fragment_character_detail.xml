@@ -16,9 +16,9 @@
             android:id="@+id/characterNameCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
             android:minHeight="48dp"
             app:cardCornerRadius="8dp"
+            android:layout_margin="4dp"
             app:cardElevation="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +39,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    android:contentDescription="@string/character_detail_image_view_description"
                     app:srcCompat="@mipmap/ic_launcher"
                     app:strokeColor="@color/border_grey"
                     app:strokeWidth="1dp" />
@@ -75,10 +76,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/summary_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textSize="22sp"
-            app:layout_constraintStart_toStartOf="@+id/characterNameCardView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/characterNameCardView" />
 
         <LinearLayout
@@ -87,6 +89,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:paddingBottom="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/summaryTitleTextView">
@@ -110,95 +115,129 @@
                 app:titleText="@string/height_title" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/homelandTitleTextView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/homeworldLinearLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/homeland_title"
-            android:textSize="22sp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            app:layout_constraintStart_toStartOf="@+id/characterNameCardView"
-            app:layout_constraintTop_toBottomOf="@id/summaryCardsLayout" />
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/summaryCardsLayout">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/homelandCardView"
+            <TextView
+                android:id="@+id/homelandTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/homeland_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="22sp" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/loadingHomeworldProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                app:indicatorColor="@color/sw_yellow" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/homelandCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="12dp"
+                android:minHeight="48dp"
+                android:visibility="gone"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="5dp"
+                tools:visibility="visible">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/planetImageView"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:foregroundGravity="center"
+                        android:padding="1dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                        android:contentDescription="@string/homeworld_image_view_description"
+                        app:srcCompat="@mipmap/ic_launcher"
+                        app:strokeColor="@color/border_grey"
+                        app:strokeWidth="1dp" />
+
+                    <TextView
+                        android:id="@+id/planetNameTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/planetImageView"
+                        app:layout_constraintStart_toEndOf="@+id/planetImageView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Hott" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/vehiclesLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_marginStart="8dp"
-            android:minHeight="48dp"
-            android:visibility="gone"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
-            app:layout_constraintStart_toStartOf="@+id/characterNameCardView"
-            app:layout_constraintTop_toBottomOf="@+id/homelandTitleTextView">
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeworldLinearLayout">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/vehiclesTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/vehicles_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/homelandCardView" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/loadingVehiclesProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                app:indicatorColor="@color/sw_yellow" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/vehiclesRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="8dp">
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/planetImageView"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:foregroundGravity="center"
-                    android:padding="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                    app:srcCompat="@mipmap/ic_launcher"
-                    app:strokeColor="@color/border_grey"
-                    app:strokeWidth="1dp" />
+            <TextView
+                android:id="@+id/emptyVehiclesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/empty_vehicle_list_message"
+                android:visibility="gone" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/planetNameTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/planetImageView"
-                    app:layout_constraintStart_toEndOf="@+id/planetImageView"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Hott" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/vehiclesTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/vehicles_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textSize="22sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homelandCardView" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/vehiclesRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vehiclesTitleTextView" />
-
-        <TextView
-            android:id="@+id/emptyVehiclesTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/empty_vehicle_list_message"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vehiclesTitleTextView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

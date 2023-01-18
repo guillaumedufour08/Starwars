@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
@@ -69,14 +70,14 @@ class CharacterListFragment : Fragment() {
     private fun initializeCharacterRecyclerView() {
         binding.charactersRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
-//            adapter = charactersListAdapter
             adapter = characterListAdapter
         }
     }
 
     private fun navigateToCharacterDetail(character: Character) {
         viewModel.setSelectedCharacter(character)
-        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        val bundle = bundleOf("character" to character)
+        findNavController().navigate(R.id.action_CharacterListFragment_to_CharacterDetailFragment, bundle)
     }
 
     override fun onDestroyView() {
