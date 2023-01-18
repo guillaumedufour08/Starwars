@@ -9,7 +9,7 @@ import com.example.starwars.model.Planet
 import com.example.starwars.model.Vehicule
 import com.example.starwars.repository.PlanetRepository
 import com.example.starwars.repository.VehiculeRepository
-import com.example.starwars.util.StringManager
+import com.example.starwars.util.retrieveIdFromURL
 import kotlinx.coroutines.launch
 
 class CharacterDetailViewModel : ViewModel() {
@@ -41,7 +41,7 @@ class CharacterDetailViewModel : ViewModel() {
     }
 
     private fun fetchPlanet() {
-        val id = StringManager.retriveIdFromURL(_selectedCharacter.value!!.homeworldURL)
+        val id = _selectedCharacter.value!!.homeworldURL.retrieveIdFromURL()
         _isHomeworldBeingFetched.value = true
         viewModelScope.launch {
             _isHomeworldBeingFetched.value = false

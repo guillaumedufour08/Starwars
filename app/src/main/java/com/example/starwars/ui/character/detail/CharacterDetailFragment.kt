@@ -12,6 +12,7 @@ import com.example.starwars.util.StringManager
 import com.example.starwars.databinding.FragmentCharacterDetailBinding
 import com.example.starwars.viewmodel.CharacterDetailViewModel
 import com.example.starwars.model.Character
+import com.example.starwars.util.formatDate
 
 class CharacterDetailFragment : Fragment() {
 
@@ -45,7 +46,7 @@ class CharacterDetailFragment : Fragment() {
         viewModel.selectedCharacter.observe(viewLifecycleOwner) { character ->
             binding.apply {
                 characterNameTextView.text = character!!.name
-                updatedAtTextView.text = root.context.getString(R.string.updated_at, StringManager.formatDate(character.edited))
+                updatedAtTextView.text = root.context.getString(R.string.updated_at, character.edited.formatDate())
                 genderCardView.setValue(StringManager.findFromName(root, character.gender))
                 heightCardView.setValue(root.context.getString(R.string.height, character.height))
             }
@@ -103,7 +104,6 @@ class CharacterDetailFragment : Fragment() {
 }
 
 // old « initializeVehiclesListObserver() »
-
 /*
 //        testViewModel.vehiclesList.observe(viewLifecycleOwner) { vehicles ->
 //                if (testViewModel.areVehiclesBeingFetched.value == false) {

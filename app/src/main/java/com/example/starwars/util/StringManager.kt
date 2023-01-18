@@ -1,8 +1,10 @@
 package com.example.starwars.util
 
 import android.os.Build
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
+import java.text.SimpleDateFormat
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -13,12 +15,6 @@ class StringManager {
             val packageName = root.context.packageName
             val resourceId = root.resources.getIdentifier(name, "string", packageName)
             return if (resourceId != 0)  root.context.getString(resourceId) else name
-        }
-
-        fun retriveIdFromURL(url: String): String {
-            val trimedURL = url.trimEnd('/')
-            val start = trimedURL.lastIndexOf("/") + 1
-            return url.substring(start, trimedURL.lastIndex + 1)
         }
 
         // TODO : Fonctionne seulement avec API 26... trouver une solution pour être
