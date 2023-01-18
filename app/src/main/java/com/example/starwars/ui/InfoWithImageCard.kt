@@ -22,6 +22,10 @@ class InfoWithImageCard @JvmOverloads constructor(
         applyAttributes()
     }
 
+    fun setValue(value: String) {
+        binding.valueTextView.text = value
+    }
+
     // Modification de la card view qui englobe le layout
     private fun customizeCardView() {
         cardElevation = 5f

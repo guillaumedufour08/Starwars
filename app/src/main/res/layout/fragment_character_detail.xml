@@ -1,68 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.CharacterDetailFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/characterNameCardView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:minHeight="48dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="8dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/characterNameCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:minHeight="48dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/characterDetailImageView"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:foregroundGravity="center"
+                    android:padding="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    app:srcCompat="@mipmap/ic_launcher"
+                    app:strokeColor="@color/border_grey"
+                    app:strokeWidth="1dp" />
+
+                <TextView
+                    android:id="@+id/characterNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/characterDetailImageView"
+                    app:layout_constraintStart_toEndOf="@id/characterDetailImageView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Luke Skywalker" />
+
+                <TextView
+                    android:id="@+id/updatedAtTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="@+id/characterNameTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/characterNameTextView"
+                    tools:text="Modifié le " />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/summaryTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/summary_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@+id/characterNameCardView"
+            app:layout_constraintTop_toBottomOf="@id/characterNameCardView" />
+
+        <LinearLayout
+            android:id="@+id/summaryCardsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/summaryTitleTextView">
+
+            <com.example.starwars.ui.InfoWithImageCard
+                android:id="@+id/genderCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:iconSrc="@drawable/ic_baseline_transgender_24"
+                app:titleText="@string/gender" />
+
+            <com.example.starwars.ui.InfoWithImageCard
+                android:id="@+id/heightCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:iconSrc="@drawable/ic_baseline_height_24"
+                app:titleText="@string/height_title" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/homelandTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/homeland_title"
+            android:textSize="22sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_constraintStart_toStartOf="@+id/characterNameCardView"
+            app:layout_constraintTop_toBottomOf="@id/summaryCardsLayout" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/homelandCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_marginStart="8dp"
+            android:minHeight="48dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="5dp"
+            app:layout_constraintStart_toStartOf="@+id/characterNameCardView"
+            app:layout_constraintTop_toBottomOf="@+id/homelandTitleTextView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/planetImageView"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:foregroundGravity="center"
+                    android:padding="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    app:srcCompat="@mipmap/ic_launcher"
+                    app:strokeColor="@color/border_grey"
+                    app:strokeWidth="1dp" />
+
+                <TextView
+                    android:id="@+id/planetNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/planetImageView"
+                    app:layout_constraintStart_toEndOf="@+id/planetImageView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Hott" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/vehiclesTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/vehicles_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/homelandCardView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vehiclesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp">
-
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/characterDetailImageView"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:foregroundGravity="center"
-                android:padding="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                app:srcCompat="@mipmap/ic_launcher"
-                app:strokeColor="@color/border_grey"
-                app:strokeWidth="1dp" />
-
-            <TextView
-                android:id="@+id/characterNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@+id/characterDetailImageView"
-                app:layout_constraintStart_toEndOf="@id/characterDetailImageView"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Luke Skywalker" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-<!--    <com.example.starwars.ui.InfoWithImageCard-->
-<!--        android:id="@+id/infoWithImageCard"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="4dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/characterNameCardView"-->
-<!--        app:titleText="Test from XML" />-->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vehiclesTitleTextView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

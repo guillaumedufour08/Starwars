@@ -48,6 +48,10 @@ class CharacterListViewModel : ViewModel() {
         _selectedCharacter.value = character
     }
 
+    fun unselectCharacter() {
+
+    }
+
     fun fetchCharacterPlanetAndVehicules() {
         fetchPlanet()
         fetchVehicules()
