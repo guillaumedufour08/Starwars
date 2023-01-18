@@ -6,17 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starwars.R
 import com.example.starwars.util.StringManager
 import com.example.starwars.databinding.FragmentCharacterDetailBinding
 import com.example.starwars.viewmodel.CharacterDetailViewModel
-import kotlinx.coroutines.launch
+import com.example.starwars.model.Character
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class CharacterDetailFragment : Fragment() {
 
 //    private val viewModel : CharacterListViewModel by activityViewModels()
@@ -31,7 +27,7 @@ class CharacterDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCharacterDetailBinding.inflate(inflater, container, false)
-        viewModel.setSelectedCharacter(arguments?.getSerializable("character") as com.example.starwars.model.Character)
+        viewModel.setSelectedCharacter(arguments?.getSerializable("character") as Character)
         return binding.root
     }
 
@@ -64,34 +60,15 @@ class CharacterDetailFragment : Fragment() {
     }
 
     private fun initializeVehiclesListObserver() {
-//        testViewModel.vehiclesList.observe(viewLifecycleOwner) { vehicles ->
-//            lifecycle.coroutineScope.launch {
-//                if (testViewModel.areVehiclesBeingFetched.value == false) {
-//                    if (vehicles != null) {
-//                        binding.apply {
-//                            if (vehicles.isEmpty()) {
-//                                emptyVehiclesTextView.visibility = View.VISIBLE
-//                            } else {
-//                                vehiclesRecyclerView.visibility = View.VISIBLE
-//                                vehiclesListAdapter.submitList(vehicles)
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
         viewModel.vehiclesList.observe(viewLifecycleOwner) { vehicles ->
-            lifecycle.coroutineScope.launch {
-                binding.apply {
-                    loadingVehiclesProgressBar.visibility =
-                        if (viewModel.areVehiclesBeingFetched.value == true) View.VISIBLE else View.GONE
-                    if (vehicles.isEmpty()) {
-                        emptyVehiclesTextView.visibility = View.VISIBLE
-                    } else {
-                        vehiclesRecyclerView.visibility = View.VISIBLE
-                        vehiclesListAdapter.submitList(vehicles)
-                    }
+            binding.apply {
+                loadingVehiclesProgressBar.visibility =
+                    if (viewModel.areVehiclesBeingFetched.value == true) View.VISIBLE else View.GONE
+                if (vehicles.isEmpty()) {
+                    emptyVehiclesTextView.visibility = View.VISIBLE
+                } else {
+                    vehiclesRecyclerView.visibility = View.VISIBLE
+                    vehiclesListAdapter.submitList(vehicles)
                 }
             }
         }
@@ -99,15 +76,13 @@ class CharacterDetailFragment : Fragment() {
 
     private fun initializePlanetObserver() {
         viewModel.homeworld.observe(viewLifecycleOwner) { planet ->
-            lifecycle.coroutineScope.launch {
-                binding.apply {
-                    loadingHomeworldProgressBar.visibility =
-                        if (viewModel.isHomeworldBeingFetched.value == true) View.VISIBLE else View.GONE
-                    homelandCardView.visibility = View.VISIBLE
-                    planetNameTextView.text = planet.name
-                    planetImageView.contentDescription =
-                        root.context.getString(R.string.homeworld_image_view_description, planet.name)
-                }
+            binding.apply {
+                loadingHomeworldProgressBar.visibility =
+                    if (viewModel.isHomeworldBeingFetched.value == true) View.VISIBLE else View.GONE
+                homelandCardView.visibility = View.VISIBLE
+                planetNameTextView.text = planet.name
+                planetImageView.contentDescription =
+                    root.context.getString(R.string.homeworld_image_view_description, planet.name)
             }
         }
     }
@@ -126,3 +101,22 @@ class CharacterDetailFragment : Fragment() {
         _binding = null
     }
 }
+
+// old « initializeVehiclesListObserver() »
+
+/*
+//        testViewModel.vehiclesList.observe(viewLifecycleOwner) { vehicles ->
+//                if (testViewModel.areVehiclesBeingFetched.value == false) {
+//                    if (vehicles != null) {
+//                        binding.apply {
+//                            if (vehicles.isEmpty()) {
+//                                emptyVehiclesTextView.visibility = View.VISIBLE
+//                            } else {
+//                                vehiclesRecyclerView.visibility = View.VISIBLE
+//                                vehiclesListAdapter.submitList(vehicles)
+//                            }
+//                        }
+//                    }
+//                }
+//        }
+ */

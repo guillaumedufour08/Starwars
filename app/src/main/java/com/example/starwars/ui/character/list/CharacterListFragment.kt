@@ -7,18 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starwars.R
 import com.example.starwars.databinding.FragmentCharacterListBinding
 import com.example.starwars.viewmodel.CharacterListViewModel
-import kotlinx.coroutines.launch
 import com.example.starwars.model.Character
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class CharacterListFragment : Fragment() {
 
     private val viewModel : CharacterListViewModel by activityViewModels()
@@ -52,17 +47,15 @@ class CharacterListFragment : Fragment() {
 
     private fun initializeListObserver() {
         viewModel.characterList.observe(viewLifecycleOwner) { characters ->
-            lifecycle.coroutineScope.launch {
-//                charactersListAdapter.submitList(characters)
-                characterListAdapter.setData(characters)
-            }
+            //charactersListAdapter.submitList(characters)
+            characterListAdapter.setData(characters)
         }
     }
 
     private fun initializeFetchingCharactersObserver() {
-        viewModel.isInCall.observe(viewLifecycleOwner) { areCharactersBeingFetched ->
+        viewModel.isCallingApi.observe(viewLifecycleOwner) { isCallingApi ->
             binding.charactersLoadingProgressBar.apply {
-                visibility = if (areCharactersBeingFetched) View.VISIBLE else View.GONE
+                visibility = if (isCallingApi) View.VISIBLE else View.GONE
             }
         }
     }
