@@ -1,6 +1,5 @@
 package com.example.starwars.repository
 
-import com.example.starwars.api.ApiProvider
 import com.example.starwars.api.StarshipAPI
 import com.example.starwars.model.Starship
 import com.example.starwars.util.retrieveIdFromURL

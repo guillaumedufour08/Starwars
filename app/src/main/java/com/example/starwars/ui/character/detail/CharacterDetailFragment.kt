@@ -16,8 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CharacterDetailFragment : Fragment() {
-
-//    private val viewModel : CharacterListViewModel by activityViewModels()
     private val viewModel : CharacterDetailViewModel by viewModels()
     private var _binding: FragmentCharacterDetailBinding? = null
     private val binding get() = _binding!!

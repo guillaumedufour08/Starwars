@@ -1,4 +1,4 @@
-package com.example.starwars.api
+package com.example.starwars.model
 
 import com.example.starwars.model.Character
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
