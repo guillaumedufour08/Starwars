@@ -32,11 +32,9 @@ object CharacterRepository {
     fun getFetchedCharacters() = characters
 
     suspend fun fetchCharacters() = withContext(Dispatchers.IO) {
-        if (characters.isEmpty()) {
-            val fetchedCharacters = api.getCharacters(1).body()?.results
-            if (characters.isEmpty() && fetchedCharacters != null)
-                characters.addAll(fetchedCharacters)
-        }
+        val fetchedCharacters = api.getCharacters(1).body()?.results
+        if (characters.isEmpty() && fetchedCharacters != null)
+            characters.addAll(fetchedCharacters)
         characters
     }
 }
