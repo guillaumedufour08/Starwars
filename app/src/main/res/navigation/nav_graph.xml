@@ -16,8 +16,8 @@
             app:destination="@id/CharacterDetailFragment" >
 
             <argument
-                android:name="character"
-                app:argType="com.example.starwars.model.Character" />
+                android:name="characterID"
+                app:argType="string" />
 
         </action>
     </fragment>

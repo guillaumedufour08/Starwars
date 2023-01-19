@@ -10,15 +10,15 @@ import kotlinx.coroutines.launch
 
 class CharacterListViewModel : ViewModel() {
 
-    private val characterRepository = CharacterRepository()
+    private val characterRepository = CharacterRepository
 //    private val planetRepository = PlanetRepository()
 //    private val vehiculeRepository = VehiculeRepository()
 
     private val _charactersList = MutableLiveData<List<Character>>()
     val characterList : LiveData<List<Character>> =  _charactersList
 
-    private val _isCallingApi = MutableLiveData<Boolean>()
-    val isCallingApi : LiveData<Boolean> =  _isCallingApi
+    private val _isApiBeingCalled = MutableLiveData<Boolean>()
+    val isApiBeingCalled : LiveData<Boolean> =  _isApiBeingCalled
 
 //    private val _selectedCharacter = MutableLiveData<Character?>()
 //    val selectedCharacter : LiveData<Character?> = _selectedCharacter
@@ -33,11 +33,12 @@ class CharacterListViewModel : ViewModel() {
 //    val areVehiclesBeingFetched : LiveData<Boolean> =  _areVehiclesBeingFetched
 
     fun fetchCharacters() {
-        if (_charactersList.value == null) {
-            _isCallingApi.value = true
+        val savedCharacters = characterRepository.getFetchedCharacters()
+        if (savedCharacters.isEmpty()) {
+            _isApiBeingCalled.value = true
             viewModelScope.launch {
                 _charactersList.value = characterRepository.fetchCharacters()
-                _isCallingApi.value = false
+                _isApiBeingCalled.value = false
             }
         }
     }

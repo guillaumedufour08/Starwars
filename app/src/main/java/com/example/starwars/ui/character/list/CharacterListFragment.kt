@@ -6,17 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starwars.R
 import com.example.starwars.databinding.FragmentCharacterListBinding
 import com.example.starwars.viewmodel.CharacterListViewModel
 import com.example.starwars.model.Character
+import com.example.starwars.util.retrieveIdFromURL
 
 class CharacterListFragment : Fragment() {
 
-    private val viewModel : CharacterListViewModel by activityViewModels()
+    private val viewModel : CharacterListViewModel by viewModels()
     private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
 
@@ -53,7 +54,7 @@ class CharacterListFragment : Fragment() {
     }
 
     private fun initializeFetchingCharactersObserver() {
-        viewModel.isCallingApi.observe(viewLifecycleOwner) { isCallingApi ->
+        viewModel.isApiBeingCalled.observe(viewLifecycleOwner) { isCallingApi ->
             binding.charactersLoadingProgressBar.apply {
                 visibility = if (isCallingApi) View.VISIBLE else View.GONE
             }
@@ -69,7 +70,7 @@ class CharacterListFragment : Fragment() {
 
     private fun navigateToCharacterDetail(character: Character) {
 //        viewModel.setSelectedCharacter(character)
-        val bundle = bundleOf("character" to character)
+        val bundle = bundleOf("characterID" to character.url.retrieveIdFromURL())
         findNavController().navigate(R.id.action_CharacterListFragment_to_CharacterDetailFragment, bundle)
     }
 

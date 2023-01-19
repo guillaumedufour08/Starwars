@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.starwars.R
-import com.example.starwars.util.StringManager
+import com.example.starwars.util.StringFinder
 import com.example.starwars.databinding.CharacterListItemBinding
 import com.example.starwars.model.Character
 
@@ -51,7 +51,7 @@ class CharacterListAdapterOld(private val onItemClicked: (Character) -> Unit) : 
                 characterNameTextView.text = character.name
                 characterListItemCardView.contentDescription = root.context.getString(R.string.character_list_item_button_description, character.name)
                 heightTextView.text = root.context.getString(R.string.height, character.height)
-                genderTextView.text = StringManager.findFromName(root, character.gender)
+                genderTextView.text = StringFinder.findFromName(root, character.gender)
             }
         }
     }

@@ -7,12 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.starwars.model.Character
 import com.example.starwars.model.Planet
 import com.example.starwars.model.Starship
+import com.example.starwars.repository.CharacterRepository
 import com.example.starwars.repository.PlanetRepository
 import com.example.starwars.repository.StarshipRepository
 import com.example.starwars.util.retrieveIdFromURL
 import kotlinx.coroutines.launch
 
 class CharacterDetailViewModel : ViewModel() {
+    private val characterRepository = CharacterRepository
     private val planetRepository = PlanetRepository()
     private val starshipRepository = StarshipRepository()
 
@@ -31,8 +33,8 @@ class CharacterDetailViewModel : ViewModel() {
     private val _isHomeworldBeingFetched = MutableLiveData<Boolean>()
     val isHomeworldBeingFetched : LiveData<Boolean> =  _isHomeworldBeingFetched
 
-    fun setSelectedCharacter(character: Character) {
-        _selectedCharacter.value = character
+    fun setSelectedCharacter(id: String) {
+        _selectedCharacter.value = characterRepository.getFetchedCharacters().find { character -> character.url.retrieveIdFromURL() == id }
     }
 
     fun fetchCharacterPlanetAndStarships() {

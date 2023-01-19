@@ -4,10 +4,12 @@ import com.example.starwars.api.ApiProvider
 import com.example.starwars.api.CharacterAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import com.example.starwars.model.Character
 
-class CharacterRepository {
+object CharacterRepository {
 
     private val api : CharacterAPI = ApiProvider.getInstance().create(CharacterAPI::class.java)
+    private val characters = mutableListOf<Character>()
 
 //    suspend fun fetchCharactersWhileHandlingPager(): List<Character> {
 //        val characters = arrayListOf<Character>()
@@ -27,7 +29,14 @@ class CharacterRepository {
 //        return characters
 //    }
 
+    fun getFetchedCharacters() = characters
+
     suspend fun fetchCharacters() = withContext(Dispatchers.IO) {
-        api.getCharacters(1).body()?.results
+        if (characters.isEmpty()) {
+            val fetchedCharacters = api.getCharacters(1).body()?.results
+            if (characters.isEmpty() && fetchedCharacters != null)
+                characters.addAll(fetchedCharacters)
+        }
+        characters
     }
 }

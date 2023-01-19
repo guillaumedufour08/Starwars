@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starwars.R
-import com.example.starwars.util.StringManager
+import com.example.starwars.util.StringFinder
 import com.example.starwars.databinding.FragmentCharacterDetailBinding
+import com.example.starwars.util.DateParser
 import com.example.starwars.viewmodel.CharacterDetailViewModel
-import com.example.starwars.model.Character
-import com.example.starwars.util.formatDate
 
 class CharacterDetailFragment : Fragment() {
 
@@ -28,7 +27,7 @@ class CharacterDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCharacterDetailBinding.inflate(inflater, container, false)
-        viewModel.setSelectedCharacter(arguments?.getSerializable("character") as Character)
+        viewModel.setSelectedCharacter(arguments?.getString("characterID")!!)
         return binding.root
     }
 
@@ -44,10 +43,11 @@ class CharacterDetailFragment : Fragment() {
 
     private fun initializeCharacterObserver() {
         viewModel.selectedCharacter.observe(viewLifecycleOwner) { character ->
+            val date = DateParser.format(character!!.edited)
             binding.apply {
-                characterNameTextView.text = character!!.name
-                updatedAtTextView.text = root.context.getString(R.string.updated_at, character.edited.formatDate())
-                genderCardView.setValue(StringManager.findFromName(root, character.gender))
+                characterNameTextView.text = character.name
+                updatedAtTextView.text = root.context.getString(R.string.updated_at, date)
+                genderCardView.setValue(StringFinder.findFromName(root, character.gender))
                 heightCardView.setValue(root.context.getString(R.string.height, character.height))
             }
         }
