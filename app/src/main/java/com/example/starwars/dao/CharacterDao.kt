@@ -16,5 +16,5 @@ interface CharacterDao {
     suspend fun findById(uid: Int): Character
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(characters: List<Character>)
+    suspend fun insertAll(characters: List<Character>?)
 }

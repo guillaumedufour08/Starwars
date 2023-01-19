@@ -26,11 +26,12 @@ class CharacterRepository @Inject constructor(
         val (charactersFromApi, charactersFromDao) = awaitAll(charactersFromApiCall, charactersFromDaoCall)
         if (charactersFromApi != charactersFromDao) {
             launch {
-                if (charactersFromApi != null)
-                    dao.insertAll(charactersFromApi)
+                dao.insertAll(charactersFromApi)
             }
         }
-        charactersFromApi
+        if (charactersFromApi != null)
+            characters.addAll(charactersFromApi)
+        characters
     }
 
 //    suspend fun fetchCharacters() = withContext(Dispatchers.IO) {
