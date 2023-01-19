@@ -11,13 +11,16 @@ import com.example.starwars.repository.CharacterRepository
 import com.example.starwars.repository.PlanetRepository
 import com.example.starwars.repository.StarshipRepository
 import com.example.starwars.util.retrieveIdFromURL
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharacterDetailViewModel : ViewModel() {
-    private val characterRepository = CharacterRepository
-    private val planetRepository = PlanetRepository()
-    private val starshipRepository = StarshipRepository()
-
+@HiltViewModel
+class CharacterDetailViewModel @Inject constructor(
+    private val characterRepository: CharacterRepository,
+    private val planetRepository: PlanetRepository,
+    private val starshipRepository: StarshipRepository
+) : ViewModel() {
     private val _selectedCharacter = MutableLiveData<Character?>()
     val selectedCharacter : LiveData<Character?> = _selectedCharacter
 
@@ -33,19 +36,19 @@ class CharacterDetailViewModel : ViewModel() {
     private val _isHomeworldBeingFetched = MutableLiveData<Boolean>()
     val isHomeworldBeingFetched : LiveData<Boolean> =  _isHomeworldBeingFetched
 
-    fun setSelectedCharacter(id: String) {
-        _selectedCharacter.value = characterRepository.getFetchedCharacters().find { character -> character.url.retrieveIdFromURL() == id }
-    }
-
-    fun fetchCharacterPlanetAndStarships() {
-        fetchPlanet()
-        fetchStarships()
+    fun getCharacterWithEntities(uid: Int) {
+        viewModelScope.launch {
+            _selectedCharacter.value = characterRepository.getCharacter(uid)
+        }.invokeOnCompletion {
+            fetchPlanet()
+            fetchStarships()
+        }
     }
 
     private fun fetchPlanet() {
-        val id = _selectedCharacter.value!!.homeworldURL.retrieveIdFromURL()
         _isHomeworldBeingFetched.value = true
         viewModelScope.launch {
+            val id = _selectedCharacter.value!!.homeworldURL.retrieveIdFromURL()
             _isHomeworldBeingFetched.value = false
             _homeworld.value = planetRepository.fetchPlanet(id)
         }

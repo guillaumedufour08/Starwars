@@ -4,10 +4,13 @@ import com.example.starwars.api.ApiProvider
 import com.example.starwars.api.StarshipAPI
 import com.example.starwars.model.Starship
 import com.example.starwars.util.retrieveIdFromURL
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class StarshipRepository {
-    private val api : StarshipAPI = ApiProvider.getInstance().create(StarshipAPI::class.java)
-
+@Singleton
+class StarshipRepository @Inject constructor(
+    private val api: StarshipAPI
+) {
     suspend fun fetchStarships(urls : List<String>): List<Starship> {
         val starships = ArrayList<Starship>()
         for(starshipURL : String in urls) {

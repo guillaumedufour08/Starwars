@@ -14,7 +14,9 @@ import com.example.starwars.databinding.FragmentCharacterListBinding
 import com.example.starwars.viewmodel.CharacterListViewModel
 import com.example.starwars.model.Character
 import com.example.starwars.util.retrieveIdFromURL
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CharacterListFragment : Fragment() {
 
     private val viewModel : CharacterListViewModel by viewModels()
@@ -70,7 +72,7 @@ class CharacterListFragment : Fragment() {
 
     private fun navigateToCharacterDetail(character: Character) {
 //        viewModel.setSelectedCharacter(character)
-        val bundle = bundleOf("characterID" to character.url.retrieveIdFromURL())
+        val bundle = bundleOf("characterUID" to character.uid)
         findNavController().navigate(R.id.action_CharacterListFragment_to_CharacterDetailFragment, bundle)
     }
 

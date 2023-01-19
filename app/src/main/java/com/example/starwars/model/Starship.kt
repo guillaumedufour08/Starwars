@@ -1,9 +1,10 @@
 package com.example.starwars.model
 
-import com.google.gson.annotations.SerializedName
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 
-data class Starship(val name: String,
-                    val model: String,
-                    val manufacturer: String,
-                    @SerializedName("max_atmosphering_speed")
-                    val maxSpeed: String)
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Starship(@JsonProperty("name") val name: String,
+                    @JsonProperty("model") val model: String,
+                    @JsonProperty("manufacturer") val manufacturer: String,
+                    @JsonProperty("max_atmosphering_speed") val maxSpeed: String)

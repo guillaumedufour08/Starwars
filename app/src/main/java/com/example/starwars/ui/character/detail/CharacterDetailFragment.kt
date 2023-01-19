@@ -12,7 +12,9 @@ import com.example.starwars.util.StringFinder
 import com.example.starwars.databinding.FragmentCharacterDetailBinding
 import com.example.starwars.util.DateParser
 import com.example.starwars.viewmodel.CharacterDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CharacterDetailFragment : Fragment() {
 
 //    private val viewModel : CharacterListViewModel by activityViewModels()
@@ -27,7 +29,7 @@ class CharacterDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCharacterDetailBinding.inflate(inflater, container, false)
-        viewModel.setSelectedCharacter(arguments?.getString("characterID")!!)
+        viewModel.getCharacterWithEntities(arguments?.getInt("characterUID")!!)
         return binding.root
     }
 
@@ -35,7 +37,6 @@ class CharacterDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeCharacterRecyclerView()
         initializeCharacterImageViewContentDescription()
-        viewModel.fetchCharacterPlanetAndStarships()
         initializeCharacterObserver()
         initializePlanetObserver()
         initializeStarshipsListObserver()

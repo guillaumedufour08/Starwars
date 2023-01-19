@@ -1,7 +1,11 @@
 package com.example.starwars.api
 
 import com.example.starwars.model.Character
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.google.gson.annotations.SerializedName
 
-data class CharacterPage(@SerializedName("next") val nextPageURL: String?,
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class CharacterPage(@JsonProperty("next") val nextPageURL: String?,
+                         @JsonProperty("results")
                          val results: List<Character>)
