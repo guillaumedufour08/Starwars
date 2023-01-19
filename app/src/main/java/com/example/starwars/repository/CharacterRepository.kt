@@ -14,7 +14,7 @@ class CharacterRepository @Inject constructor(
 ){
     private val characters = mutableListOf<Character>()
 
-    fun getFetchedCharacters() = characters
+    fun getLocalCharacters() = characters
 
     suspend fun getCharacter(uid: Int): Character = coroutineScope {
         dao.findById(uid)

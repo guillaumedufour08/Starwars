@@ -22,7 +22,7 @@ class CharacterListViewModel @Inject constructor(
     val isApiBeingCalled : LiveData<Boolean> =  _isApiBeingCalled
 
     fun fetchCharacters() {
-        val localCharacters = characterRepository.getFetchedCharacters()
+        val localCharacters = characterRepository.getLocalCharacters()
         if (localCharacters.isEmpty()) {
             _isApiBeingCalled.value = true
             viewModelScope.launch {
