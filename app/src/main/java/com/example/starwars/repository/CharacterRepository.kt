@@ -40,6 +40,7 @@ class CharacterRepository @Inject constructor(
 //            characters.addAll(fetchedCharacters)
 //        characters
 //    }
+
 //    suspend fun fetchCharactersWhileHandlingPager(): List<Character> {
 //        val characters = arrayListOf<Character>()
 //        val firstCharactersPage = api.getCharacters(1).body()
