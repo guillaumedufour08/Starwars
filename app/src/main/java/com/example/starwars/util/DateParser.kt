@@ -8,7 +8,7 @@ object DateParser {
     private val formatter = SimpleDateFormat("dd/MM/yyyy")
 
     fun format(stringDate: String): String {
-        var formattedDateString : String = stringDate
+        var formattedDateString: String = stringDate
         try {
             val date = parser.parse(stringDate)
             if (date != null)

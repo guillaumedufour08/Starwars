@@ -12,7 +12,7 @@ import com.example.starwars.model.Starship
 class StarshipListAdapter : ListAdapter<Starship, StarshipListAdapter.ViewHolder>(DiffCallback) {
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<Starship>() {
+        private val DiffCallback = object: DiffUtil.ItemCallback<Starship>() {
             override fun areItemsTheSame(oldItem: Starship, newItem: Starship): Boolean {
                 return oldItem.name == newItem.name
             }

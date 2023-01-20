@@ -7,5 +7,4 @@ import com.google.gson.annotations.SerializedName
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CharacterPage(@JsonProperty("next") val nextPageURL: String?,
-                         @JsonProperty("results")
-                         val results: List<Character>)
+                         @JsonProperty("results") val results: List<Character>)

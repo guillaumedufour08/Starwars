@@ -5,21 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.starwars.R
 import com.example.starwars.databinding.FragmentCharacterListBinding
 import com.example.starwars.viewmodel.CharacterListViewModel
 import com.example.starwars.model.Character
-import com.example.starwars.util.retrieveIdFromURL
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CharacterListFragment : Fragment() {
 
-    private val viewModel : CharacterListViewModel by viewModels()
+    private val viewModel: CharacterListViewModel by viewModels()
     private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
 
@@ -56,7 +53,7 @@ class CharacterListFragment : Fragment() {
     }
 
     private fun initializeFetchingCharactersObserver() {
-        viewModel.isApiBeingCalled.observe(viewLifecycleOwner) { isCallingApi ->
+        viewModel.isCharacterRepositoryInUse.observe(viewLifecycleOwner) { isCallingApi ->
             binding.charactersLoadingProgressBar.apply {
                 visibility = if (isCallingApi) View.VISIBLE else View.GONE
             }

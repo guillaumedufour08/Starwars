@@ -78,7 +78,7 @@ class CharacterDetailFragment : Fragment() {
     }
 
     private fun initializeFetchingHomeworldObserver() {
-        viewModel.isHomeworldBeingFetched.observe(viewLifecycleOwner) { isHomeworldBeingFetched ->
+        viewModel.isHomeworldRepositoryInUse.observe(viewLifecycleOwner) { isHomeworldBeingFetched ->
             binding.apply {
                 loadingHomeworldProgressBar.visibility =
                     if (isHomeworldBeingFetched == true) View.VISIBLE else View.GONE
@@ -87,7 +87,7 @@ class CharacterDetailFragment : Fragment() {
     }
 
     private fun initializeFetchingStarshipsObserver() {
-        viewModel.areStarshipsBeingFetched.observe(viewLifecycleOwner) { areStarshipsBeingFetched ->
+        viewModel.isStarshipRepositoryInUse.observe(viewLifecycleOwner) { areStarshipsBeingFetched ->
             binding.apply {
                 loadingStarshipsProgressBar.visibility =
                     if (areStarshipsBeingFetched == true) View.VISIBLE else View.GONE
@@ -108,25 +108,6 @@ class CharacterDetailFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        viewModel.unselectCharacter()
         _binding = null
     }
 }
-
-// old « initializeVehiclesListObserver() »
-/*
-//        testViewModel.vehiclesList.observe(viewLifecycleOwner) { vehicles ->
-//                if (testViewModel.areVehiclesBeingFetched.value == false) {
-//                    if (vehicles != null) {
-//                        binding.apply {
-//                            if (vehicles.isEmpty()) {
-//                                emptyVehiclesTextView.visibility = View.VISIBLE
-//                            } else {
-//                                vehiclesRecyclerView.visibility = View.VISIBLE
-//                                vehiclesListAdapter.submitList(vehicles)
-//                            }
-//                        }
-//                    }
-//                }
-//        }
- */

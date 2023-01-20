@@ -10,7 +10,7 @@ import javax.inject.Singleton
 class StarshipRepository @Inject constructor(
     private val api: StarshipAPI
 ) {
-    suspend fun fetchStarships(urls : List<String>): List<Starship> {
+    suspend fun fetchStarships(urls: List<String>): List<Starship> {
         val starships = ArrayList<Starship>()
         for(starshipURL : String in urls) {
             val starship = api.getStarship(starshipURL.retrieveIdFromURL()).body()

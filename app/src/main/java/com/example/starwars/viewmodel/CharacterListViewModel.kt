@@ -16,18 +16,18 @@ class CharacterListViewModel @Inject constructor(
 )  : ViewModel() {
 
     private val _charactersList = MutableLiveData<List<Character>>()
-    val characterList : LiveData<List<Character>> =  _charactersList
+    val characterList: LiveData<List<Character>> =  _charactersList
 
-    private val _isApiBeingCalled = MutableLiveData<Boolean>()
-    val isApiBeingCalled : LiveData<Boolean> =  _isApiBeingCalled
+    private val _isCharacterRepositoryInUse = MutableLiveData<Boolean>()
+    val isCharacterRepositoryInUse: LiveData<Boolean> =  _isCharacterRepositoryInUse
 
     fun fetchCharacters() {
         val localCharacters = characterRepository.getLocalCharacters()
         if (localCharacters.isEmpty()) {
-            _isApiBeingCalled.value = true
+            _isCharacterRepositoryInUse.value = true
             viewModelScope.launch {
                 _charactersList.value = characterRepository.getCharacters()
-                _isApiBeingCalled.value = false
+                _isCharacterRepositoryInUse.value = false
             }
         }
     }
