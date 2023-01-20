@@ -7,5 +7,5 @@ import retrofit2.http.Path
 
 interface StarshipAPI {
     @GET("starships/{id}")
-    suspend fun getStarship(@Path("id") id: String): Response<Starship>
+    suspend fun getStarship(@Path("id") id: Int): Response<Starship>
 }

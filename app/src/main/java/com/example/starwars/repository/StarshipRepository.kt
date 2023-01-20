@@ -9,14 +9,22 @@ import javax.inject.Singleton
 @Singleton
 class StarshipRepository @Inject constructor(
     private val api: StarshipAPI
-) {
-    suspend fun fetchStarships(urls: List<String>): List<Starship> {
+) : IRepository<Starship> {
+    suspend fun getStarshipsFromUrls(urls: List<String>): List<Starship> {
         val starships = ArrayList<Starship>()
-        for(starshipURL : String in urls) {
+        for (starshipURL : String in urls) {
             val starship = api.getStarship(starshipURL.retrieveIdFromURL()).body()
             if (starship != null)
                 starships.add(starship)
         }
         return starships
+    }
+
+    override suspend fun getAll(): List<Starship> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getSingle(uid: Int): Starship? {
+        TODO("Not yet implemented")
     }
 }

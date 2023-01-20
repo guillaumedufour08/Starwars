@@ -26,7 +26,7 @@ class CharacterListViewModel @Inject constructor(
         if (localCharacters.isEmpty()) {
             _isCharacterRepositoryInUse.value = true
             viewModelScope.launch {
-                _charactersList.value = characterRepository.getCharacters()
+                _charactersList.value = characterRepository.getAll()
                 _isCharacterRepositoryInUse.value = false
             }
         }

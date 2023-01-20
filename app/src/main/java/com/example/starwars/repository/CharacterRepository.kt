@@ -11,16 +11,12 @@ import javax.inject.Singleton
 class CharacterRepository @Inject constructor(
     private val dao: CharacterDao,
     private val api: CharacterAPI
-){
+) : IRepository<Character> {
     private val characters = mutableListOf<Character>()
 
     fun getLocalCharacters() = characters
 
-    suspend fun getCharacter(uid: Int): Character = coroutineScope {
-        dao.findById(uid)
-    }
-
-    suspend fun getCharacters() = coroutineScope {
+    override suspend fun getAll(): List<Character> = coroutineScope {
         val charactersFromApiCall = async { api.getCharacters(1).body()?.results }
         val charactersFromDaoCall = async { dao.getAll() }
         val (charactersFromApi, charactersFromDao) = awaitAll(charactersFromApiCall, charactersFromDaoCall)
@@ -32,6 +28,10 @@ class CharacterRepository @Inject constructor(
         if (charactersFromApi != null)
             characters.addAll(charactersFromApi)
         characters
+    }
+
+    override suspend fun getSingle(uid: Int): Character = coroutineScope {
+        dao.findById(uid)
     }
 
 //    suspend fun fetchCharacters() = withContext(Dispatchers.IO) {

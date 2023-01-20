@@ -7,5 +7,5 @@ import retrofit2.http.Path
 
 interface PlanetAPI {
     @GET("planets/{id}")
-    suspend fun getPlanet(@Path("id") id: String): Response<Planet>
+    suspend fun getPlanet(@Path("id") id: Int): Response<Planet>
 }
