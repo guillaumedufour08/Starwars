@@ -1,5 +1,6 @@
 package com.example.starwars.di.module
 
+import com.example.starwars.RetrofitCallAdapterFactory
 import com.example.starwars.api.CharacterAPI
 import com.example.starwars.api.PlanetAPI
 import com.example.starwars.api.StarshipAPI
@@ -25,6 +26,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(JacksonConverterFactory.create())
+            .addCallAdapterFactory(RetrofitCallAdapterFactory())
             .client(httpClient)
             .build()
     }

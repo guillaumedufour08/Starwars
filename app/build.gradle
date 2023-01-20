@@ -52,7 +52,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-jackson:2.5.0'
 
-
     // Room
     var room_version = "2.5.0"
 
@@ -61,16 +60,17 @@ dependencies {
 
     // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$room_version"
+
     // To use Kotlin Symbol Processing (KSP)
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation"androidx.room:room-ktx:$room_version"
 
-    // optional - RxJava2 support for Room
+    // RxJava2 support for Room
     implementation "androidx.room:room-rxjava2:$room_version"
 
-    // optional - RxJava3 support for Room
+    // RxJava3 support for Room
     implementation "androidx.room:room-rxjava3:$room_version"
 
     //Dagger - Hilt
