@@ -2,6 +2,7 @@ package com.example.starwars.ui.character.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.isDigitsOnly
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.starwars.R
@@ -83,7 +84,8 @@ class CharacterListAdapter(private val onItemClicked: (Character) -> Unit) : Rec
                 characterCountTextView.text = characters.size.toString()
                 var countHeight = 0
                 characters.forEach { character ->
-                    countHeight += character.height.toInt()
+                    if (character.height.isDigitsOnly())
+                        countHeight += character.height.toInt()
                 }
                 val averageHeight = countHeight / characters.size
                 characterAverageHeightTextView.text = root.context.getString(R.string.height, averageHeight.toString())

@@ -40,4 +40,5 @@
     <!-- Gender types -->
     <string name="male">Homme</string>
     <string name="female">Femme</string>
+    <string name="unknown">Inconnu</string>
 </resources>

@@ -4,8 +4,10 @@ import com.example.starwars.api.CharacterAPI
 import com.example.starwars.dao.CharacterDao
 import com.example.starwars.model.Character
 import kotlinx.coroutines.*
+import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.math.ceil
 
 @Singleton
 class CharacterRepository @Inject constructor(
@@ -34,28 +36,23 @@ class CharacterRepository @Inject constructor(
         dao.findById(uid)
     }
 
-//    suspend fun fetchCharacters() = withContext(Dispatchers.IO) {
-//        val fetchedCharacters = api.getCharacters(1).body()?.results
-//        if (characters.isEmpty() && fetchedCharacters != null)
-//            characters.addAll(fetchedCharacters)
-//        characters
-//    }
+    suspend fun fetchCharactersWhileHandlingPager(): List<Character> = coroutineScope {
+        val calls = ArrayList<Deferred<List<Character>>>()
+        val firstCharactersPage = api.getCharacters(1).body()
+        if (firstCharactersPage != null) {
+            val numberOfPage = ceil(firstCharactersPage.count / CHARACTER_PER_PAGE)
+            val i = AtomicInteger(0)
+            while (i.get() < numberOfPage) {
+                calls.add(async {
+                    i.incrementAndGet()
+                    api.getCharacters(i.get()).body()!!.results
+                })
+            }
+        }
+        return@coroutineScope calls.awaitAll().flatten()
+    }
 
-//    suspend fun fetchCharactersWhileHandlingPager(): List<Character> {
-//        val characters = arrayListOf<Character>()
-//        val firstCharactersPage = api.getCharacters(1).body()
-//        if (firstCharactersPage != null) {
-//            characters.addAll(firstCharactersPage.results)
-//            var currentPage = firstCharactersPage
-//            var i = 1
-//            while (currentPage?.nextPageURL != null) {
-//                currentPage = api.getCharacters(i).body()
-//                if (currentPage != null) {
-//                    characters.addAll(currentPage.results)
-//                }
-//                ++i
-//            }
-//        }
-//        return characters
-//    }
+    companion object {
+        private const val CHARACTER_PER_PAGE = 10.0F
+    }
 }

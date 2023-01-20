@@ -3,10 +3,7 @@ package com.example.starwars.repository
 import com.example.starwars.api.StarshipAPI
 import com.example.starwars.model.Starship
 import com.example.starwars.util.retrieveIdFromURL
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
