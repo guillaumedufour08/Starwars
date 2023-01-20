@@ -12,13 +12,8 @@
         tools:layout="@layout/fragment_character_list">
 
         <action
-            android:id="@+id/action_CharacterListFragment_to_CharacterDetailFragment"
+            android:id="@+id/action_list_to_detail"
             app:destination="@id/CharacterDetailFragment" >
-
-            <argument
-                android:name="characterUID"
-                app:argType="integer" />
-
         </action>
     </fragment>
     <fragment
@@ -30,5 +25,8 @@
         <action
             android:id="@+id/action_CharacterDetailFragment_to_CharacterListFragment"
             app:destination="@id/CharacterListFragment" />
+        <argument
+            android:name="characterUID"
+            app:argType="integer" />
     </fragment>
 </navigation>

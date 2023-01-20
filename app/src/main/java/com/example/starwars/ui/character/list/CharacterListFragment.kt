@@ -72,8 +72,8 @@ class CharacterListFragment : Fragment() {
 
     private fun navigateToCharacterDetail(character: Character) {
 //        viewModel.setSelectedCharacter(character)
-        val bundle = bundleOf("characterUID" to character.uid)
-        findNavController().navigate(R.id.action_CharacterListFragment_to_CharacterDetailFragment, bundle)
+        val action = CharacterListFragmentDirections.actionListToDetail(character.uid)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
