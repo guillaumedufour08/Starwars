@@ -2,6 +2,7 @@ package com.example.starwars.repository
 
 import com.example.starwars.api.CharacterAPI
 import com.example.starwars.dao.CharacterDao
+import com.example.starwars.di.module.DefaultDispatcher
 import com.example.starwars.model.Character
 import kotlinx.coroutines.*
 import java.util.concurrent.atomic.AtomicInteger
@@ -12,7 +13,9 @@ import kotlin.math.ceil
 @Singleton
 class CharacterRepository @Inject constructor(
     private val dao: CharacterDao,
-    private val api: CharacterAPI
+    private val api: CharacterAPI,
+    @DefaultDispatcher
+    private val dispatcher: CoroutineDispatcher
 ) : IRepository<Character> {
     private val characters = mutableListOf<Character>()
 
@@ -45,7 +48,7 @@ class CharacterRepository @Inject constructor(
             })
         }
         characters.addAll(firstCharactersPage.results + calls.awaitAll().filterNotNull().flatten())
-        withContext(Dispatchers.Default) { dao.insertAll(characters) }
+        withContext(dispatcher) { dao.insertAll(characters) }
         return@coroutineScope characters
     }
 
