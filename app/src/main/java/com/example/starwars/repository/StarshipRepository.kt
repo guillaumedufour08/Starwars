@@ -12,14 +12,14 @@ class StarshipRepository @Inject constructor(
     private val api: StarshipAPI
 ) : IRepository<Starship> {
     suspend fun getStarshipsFromUrls(urls: List<String>): List<Starship> = coroutineScope {
-        val calls = ArrayList<Deferred<Starship>>()
+        val calls = ArrayList<Deferred<Starship?>>()
         for (starshipURL : String in urls) {
             val call = async {
-                api.getStarship(starshipURL.retrieveIdFromURL()).body()!!
+                api.getStarship(starshipURL.retrieveIdFromURL()).body()
             }
             calls.add(call)
         }
-        return@coroutineScope calls.awaitAll()
+        return@coroutineScope calls.awaitAll().filterNotNull()
     }
 
     override suspend fun findAll(): List<Starship> {

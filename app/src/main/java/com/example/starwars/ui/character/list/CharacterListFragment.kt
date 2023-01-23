@@ -41,13 +41,12 @@ class CharacterListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchCharacters()
+        viewModel.findCharacters()
         initializeCharacterRecyclerView()
     }
 
     private fun initializeListObserver() {
         viewModel.characterList.observe(viewLifecycleOwner) { characters ->
-            //charactersListAdapter.submitList(characters)
             characterListAdapter.setData(characters)
         }
     }
@@ -68,7 +67,6 @@ class CharacterListFragment : Fragment() {
     }
 
     private fun navigateToCharacterDetail(character: Character) {
-//        viewModel.setSelectedCharacter(character)
         val action = CharacterListFragmentDirections.actionListToDetail(character.uid)
         findNavController().navigate(action)
     }

@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterListViewModel @Inject constructor(
     private val characterRepository: CharacterRepository
-)  : ViewModel() {
+) : ViewModel() {
 
     private val _charactersList = MutableLiveData<List<Character>>()
     val characterList: LiveData<List<Character>> =  _charactersList
@@ -21,7 +21,7 @@ class CharacterListViewModel @Inject constructor(
     private val _isCharacterRepositoryInUse = MutableLiveData<Boolean>()
     val isCharacterRepositoryInUse: LiveData<Boolean> =  _isCharacterRepositoryInUse
 
-    fun fetchCharacters() {
+    fun findCharacters() {
         val localCharacters = characterRepository.getLocalCharacters()
         if (localCharacters.isEmpty()) {
             _isCharacterRepositoryInUse.value = true

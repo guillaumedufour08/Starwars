@@ -48,16 +48,20 @@ class CharacterDetailViewModel @Inject constructor(
     private fun fetchPlanet() {
         _isHomeworldRepositoryInUse.value = true
         viewModelScope.launch {
-            val id = _character.value!!.homeworldURL.retrieveIdFromURL()
-            _homeworld.value = planetRepository.findById(id)
-            _isHomeworldRepositoryInUse.value = false
+            val id = _character.value?.homeworldURL?.retrieveIdFromURL()
+            if (id != null) {
+                _homeworld.value = planetRepository.findById(id)
+                _isHomeworldRepositoryInUse.value = false
+            }
         }
     }
 
     private fun fetchStarships() {
         _isStarshipRepositoryInUse.value = true
         viewModelScope.launch {
-            _starshipList.value = starshipRepository.getStarshipsFromUrls(_character.value!!.starshipsURLS)
+            _character.value?.let {
+                _starshipList.value = starshipRepository.getStarshipsFromUrls(it.starshipsURLS)
+            }
             _isStarshipRepositoryInUse.value = false
         }
     }
