@@ -21,8 +21,8 @@ class CharacterDetailViewModel @Inject constructor(
     private val planetRepository: PlanetRepository,
     private val starshipRepository: StarshipRepository
 ) : ViewModel() {
-    private val _selectedCharacter = MutableLiveData<Character?>()
-    val selectedCharacter: LiveData<Character?> = _selectedCharacter
+    private val _character = MutableLiveData<Character?>()
+    val character: LiveData<Character?> = _character
 
     private val _homeworld = MutableLiveData<Planet>()
     val homeworld: LiveData<Planet> = _homeworld
@@ -38,7 +38,7 @@ class CharacterDetailViewModel @Inject constructor(
 
     fun getCharacterWithEntities(uid: Int) {
         viewModelScope.launch {
-            _selectedCharacter.value = characterRepository.getSingle(uid)
+            _character.value = characterRepository.findById(uid)
         }.invokeOnCompletion {
             fetchPlanet()
             fetchStarships()
@@ -48,8 +48,8 @@ class CharacterDetailViewModel @Inject constructor(
     private fun fetchPlanet() {
         _isHomeworldRepositoryInUse.value = true
         viewModelScope.launch {
-            val id = _selectedCharacter.value!!.homeworldURL.retrieveIdFromURL()
-            _homeworld.value = planetRepository.getSingle(id)
+            val id = _character.value!!.homeworldURL.retrieveIdFromURL()
+            _homeworld.value = planetRepository.findById(id)
             _isHomeworldRepositoryInUse.value = false
         }
     }
@@ -57,7 +57,7 @@ class CharacterDetailViewModel @Inject constructor(
     private fun fetchStarships() {
         _isStarshipRepositoryInUse.value = true
         viewModelScope.launch {
-            _starshipList.value = starshipRepository.getStarshipsFromUrls(_selectedCharacter.value!!.starshipsURLS)
+            _starshipList.value = starshipRepository.getStarshipsFromUrls(_character.value!!.starshipsURLS)
             _isStarshipRepositoryInUse.value = false
         }
     }

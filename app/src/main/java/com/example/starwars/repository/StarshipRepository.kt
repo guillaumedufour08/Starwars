@@ -22,11 +22,11 @@ class StarshipRepository @Inject constructor(
         return@coroutineScope calls.awaitAll()
     }
 
-    override suspend fun getAll(): List<Starship> {
+    override suspend fun findAll(): List<Starship> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getSingle(uid: Int): Starship? {
+    override suspend fun findById(uid: Int): Starship? {
         TODO("Not yet implemented")
     }
 }

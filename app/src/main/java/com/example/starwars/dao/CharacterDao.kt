@@ -10,11 +10,11 @@ import com.example.starwars.model.Character
 interface CharacterDao {
 
     @Query("SELECT * FROM character")
-    suspend fun getAll(): List<Character>
+    suspend fun findAll(): List<Character>
 
     @Query("SELECT * FROM character WHERE uid = :uid")
     suspend fun findById(uid: Int): Character
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(characters: List<Character>?)
+    suspend fun insertAll(characters: List<Character>)
 }

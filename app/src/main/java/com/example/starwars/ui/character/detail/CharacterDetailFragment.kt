@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starwars.R
@@ -44,8 +45,9 @@ class CharacterDetailFragment : Fragment() {
     }
 
     private fun initializeCharacterObserver() {
-        viewModel.selectedCharacter.observe(viewLifecycleOwner) { character ->
-            val date = DateParser.format(character!!.edited)
+        viewModel.character.observe(viewLifecycleOwner) { character ->
+            if (character == null) return@observe
+            val date = DateParser.format(character.edited)
             binding.apply {
                 characterNameTextView.text = character.name
                 updatedAtTextView.text = root.context.getString(R.string.updated_at, date)

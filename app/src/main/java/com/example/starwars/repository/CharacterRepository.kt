@@ -18,38 +18,35 @@ class CharacterRepository @Inject constructor(
 
     fun getLocalCharacters() = characters
 
-    override suspend fun getAll(): List<Character> = coroutineScope {
+    override suspend fun findAll(): List<Character> = coroutineScope {
         val charactersFromApiCall = async { api.getCharacters(1).body()?.results }
-        val charactersFromDaoCall = async { dao.getAll() }
+        val charactersFromDaoCall = async { dao.findAll() }
         val (charactersFromApi, charactersFromDao) = awaitAll(charactersFromApiCall, charactersFromDaoCall)
-        if (charactersFromApi != charactersFromDao) {
-            launch {
-                dao.insertAll(charactersFromApi)
-            }
+        if (charactersFromApi != charactersFromDao && charactersFromApi != null) {
+            launch { dao.insertAll(charactersFromApi) }
         }
-        if (charactersFromApi != null)
-            characters.addAll(charactersFromApi)
-        characters
+        charactersFromApi?.let { characters.addAll(it) }
+        return@coroutineScope characters
     }
 
-    override suspend fun getSingle(uid: Int): Character = coroutineScope {
+    override suspend fun findById(uid: Int): Character = coroutineScope {
         dao.findById(uid)
     }
 
-    suspend fun fetchCharactersWhileHandlingPager(): List<Character> = coroutineScope {
-        val calls = ArrayList<Deferred<List<Character>>>()
-        val firstCharactersPage = api.getCharacters(1).body()
-        if (firstCharactersPage != null) {
-            val numberOfPage = ceil(firstCharactersPage.count / CHARACTER_PER_PAGE)
-            val i = AtomicInteger(0)
-            while (i.get() < numberOfPage) {
-                calls.add(async {
-                    i.incrementAndGet()
-                    api.getCharacters(i.get()).body()!!.results
-                })
-            }
+    suspend fun findAllCharactersWithPageHandling(): List<Character> = coroutineScope {
+        val calls = ArrayList<Deferred<List<Character>?>>()
+        val firstCharactersPage = api.getCharacters(1).body() ?: return@coroutineScope listOf()
+        val numberOfPage = ceil(firstCharactersPage.count / CHARACTER_PER_PAGE)
+        val i = AtomicInteger(1)
+        while (i.get() < numberOfPage) {
+            calls.add(async {
+                i.incrementAndGet()
+                api.getCharacters(i.get()).body()?.results
+            })
         }
-        return@coroutineScope calls.awaitAll().flatten()
+        characters.addAll(firstCharactersPage.results + calls.awaitAll().filterNotNull().flatten())
+        withContext(Dispatchers.Default) { dao.insertAll(characters) }
+        return@coroutineScope characters
     }
 
     companion object {

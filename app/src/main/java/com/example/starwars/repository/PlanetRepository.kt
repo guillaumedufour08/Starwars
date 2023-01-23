@@ -11,11 +11,11 @@ class PlanetRepository @Inject constructor(
     private val api: PlanetAPI
 ) : IRepository<Planet> {
 
-    override suspend fun getAll(): List<Planet> {
+    override suspend fun findAll(): List<Planet> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getSingle(uid: Int): Planet? = coroutineScope {
+    override suspend fun findById(uid: Int): Planet? = coroutineScope {
         api.getPlanet(uid).body()
     }
 }
