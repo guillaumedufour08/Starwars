@@ -40,12 +40,10 @@ object NetworkModule {
     @Provides
     fun providesStarshipApi(retrofit: Retrofit): StarshipAPI = retrofit.create(StarshipAPI::class.java)
 
-    private fun buildHTTPClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+    private fun buildHTTPClient(): OkHttpClient = OkHttpClient.Builder()
             .callTimeout(2, TimeUnit.MINUTES)
             .connectTimeout(20, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
-    }
 }

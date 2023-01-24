@@ -1,4 +1,4 @@
-package com.example.starwars.di.module
+package com.example.starwars.di.module.coroutine
 
 import javax.inject.Qualifier
 

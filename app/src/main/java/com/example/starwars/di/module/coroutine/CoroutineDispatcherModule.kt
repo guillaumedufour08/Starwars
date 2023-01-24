@@ -1,4 +1,4 @@
-package com.example.starwars.di.module
+package com.example.starwars.di.module.coroutine
 
 import dagger.Module
 import dagger.Provides

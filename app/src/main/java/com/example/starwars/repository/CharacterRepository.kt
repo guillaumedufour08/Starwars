@@ -2,7 +2,7 @@ package com.example.starwars.repository
 
 import com.example.starwars.api.CharacterAPI
 import com.example.starwars.dao.CharacterDao
-import com.example.starwars.di.module.DefaultDispatcher
+import com.example.starwars.di.module.coroutine.DefaultDispatcher
 import com.example.starwars.model.Character
 import kotlinx.coroutines.*
 import java.util.concurrent.atomic.AtomicInteger
