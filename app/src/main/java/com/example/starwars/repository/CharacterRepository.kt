@@ -36,7 +36,7 @@ class CharacterRepository @Inject constructor(
         dao.findById(uid)
     }
 
-    suspend fun findAllCharactersWithPageHandling(): List<Character> = coroutineScope {
+    suspend fun findAllWithPageHandling(): List<Character> = coroutineScope {
         val calls = ArrayList<Deferred<List<Character>?>>()
         val firstCharactersPage = api.getCharacters(1).body() ?: return@coroutineScope listOf()
         val numberOfPage = ceil(firstCharactersPage.count / CHARACTER_PER_PAGE)

@@ -19,6 +19,6 @@ data class Character(@PrimaryKey @JsonProperty("uid") var uid: Int,
                      @JsonProperty("edited") var edited: String) {
 
     init {
-        uid = url.retrieveIdFromURL().toInt()
+        uid = url.retrieveIdFromURL()
     }
 }
